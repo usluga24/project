@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="hr">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title data-i18n="meta.title">Usluga24 - Pronađi profesionalce i usluge u par klikova</title>
 <style>
-        /* (isti CSS kao prije — skraćeno u prikazu, pasteaj svoj postojeći CSS ili zadrži ovaj) */
         * { margin:0; padding:0; box-sizing:border-box; }
         :root {
             --primary-navy: #1A2F4B;
@@ -74,7 +66,7 @@
         .footer-section h3 { margin-bottom:1rem; color:var(--primary-blue); }
         .footer-section ul { list-style:none; }
         .footer-section ul li { margin-bottom:0.5rem; }
-        .footer-section a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.3s; }
+        .footer-section a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.3s; cursor:pointer; }
         .footer-section a:hover { color:var(--primary-blue); }
         .social-links { display:grid; grid-template-columns:repeat(auto-fit,minmax(50px,1fr)); gap:1rem; margin-top:1rem; max-width:400px; }
         .social-links a { width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.3s; font-size:1.5rem; text-decoration:none; }
@@ -103,36 +95,108 @@
         .star.active, .star:hover { color:#FBBF24; }
         textarea { width:100%; padding:1rem; border:2px solid #E5E7EB; border-radius:8px; font-family:inherit; resize:vertical; min-height:120px; }
         textarea:focus { outline:none; border-color:var(--primary-blue); }
+        
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle { display:none; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--primary-navy); }
+        
+        @media (max-width:968px) {
+            .nav-container { padding:0 1rem; flex-wrap:wrap; }
+            .nav-menu { flex-direction:column; width:100%; background:white; padding:1rem 0; margin-top:1rem; gap:0; border-top:1px solid #E5E7EB; display:none; }
+            .nav-menu.show { display:flex; }
+            .nav-menu li { width:100%; }
+            .nav-menu li a { display:block; padding:0.75rem 1rem; }
+            .mobile-menu-toggle { display:block; }
+            .hero h1 { font-size:2rem; line-height:1.2; }
+            .hero p { font-size:1.1rem; }
+            .search-form { grid-template-columns:1fr; gap:0.75rem; }
+            .steps { grid-template-columns:1fr; }
+            .services-grid { grid-template-columns:repeat(2,1fr); gap:1rem; }
+            .service-card { padding:1.5rem 1rem; }
+            .service-icon { font-size:2rem; }
+            .pricing-grid { grid-template-columns:1fr; gap:1.5rem; }
+            .pricing-card.popular { transform:scale(1); margin:0; }
+        }
+        
         @media (max-width:768px) {
-            .nav-menu { display:none; }
             .nav-actions { gap:0.5rem; }
-            .language-selector { padding:0.5rem; font-size:0.875rem; }
+            .language-selector { padding:0.4rem 0.8rem; font-size:0.8rem; }
             .btn { padding:0.6rem 1rem; font-size:0.875rem; }
-            .hero h1 { font-size:2rem; }
+            .btn-outline { padding:0.5rem 0.8rem; font-size:0.8rem; }
+            .hero { padding:2rem 0; }
+            .hero h1 { font-size:1.75rem; }
             .hero p { font-size:1rem; }
-            .search-form { grid-template-columns:1fr; }
-            .trust-signals { grid-template-columns:1fr; }
-            .pricing-grid { grid-template-columns:1fr; }
-            .pricing-card.popular { transform:scale(1); }
+            .hero-cta { flex-direction:column; width:100%; }
+            .hero-cta .btn { width:100%; text-align:center; }
+            .search-box { padding:1.5rem; margin:2rem 0; }
+            .container { padding:0 1rem; }
+            .trust-signals { grid-template-columns:1fr; gap:1.5rem; }
+            .trust-item h3 { font-size:2rem; }
+            .how-it-works { padding:2rem 0; }
+            .how-it-works h2 { font-size:1.75rem; margin-bottom:2rem; }
+            .step { padding:1.5rem; }
+            .services-grid { grid-template-columns:1fr; }
+            .service-card { padding:1.5rem; }
+            .pricing-section { padding:2rem 0; }
+            .pricing-section h2 { font-size:1.75rem; margin-bottom:2rem; }
             .footer-content { grid-template-columns:1fr; gap:2rem; }
-            .modal-content { padding:2rem; width:95%; }
-            .social-links { max-width:100%; }
+            .footer-section { text-align:center; }
+            .social-links { max-width:100%; justify-content:center; margin:1rem auto; }
+            .newsletter-form { flex-direction:column; }
+            .newsletter-form input { width:100%; }
+            .modal-content { padding:1.5rem; width:95%; max-height:85vh; }
+            .modal-header h2 { font-size:1.5rem; }
+            .user-type-selector { grid-template-columns:1fr; gap:0.75rem; }
+            .form-group { margin-bottom:1rem; }
+            .dev-notice { padding:1rem; flex-direction:column; text-align:center; }
+            .dev-notice-icon { font-size:1.5rem; }
+            .review-form { padding:1.5rem; }
+            .star-rating { justify-content:center; }
+        }
+        
+        @media (max-width:480px) {
+            .logo { font-size:1.25rem; }
+            .logo-icon { width:28px; height:28px; font-size:1rem; }
+            .hero h1 { font-size:1.5rem; }
+            .hero p { font-size:0.95rem; }
+            .btn { font-size:0.8rem; padding:0.5rem 0.8rem; }
+            .search-box { padding:1rem; }
+            .form-input { padding:0.75rem; font-size:0.9rem; }
+            .trust-item h3 { font-size:1.75rem; }
+            .how-it-works h2, .pricing-section h2 { font-size:1.5rem; }
+            .step-number { width:50px; height:50px; font-size:1.25rem; }
+            .pricing-card { padding:1.5rem 1rem; }
+            .pricing-card .price { font-size:2rem; }
+            .pricing-features { font-size:0.9rem; }
+            .footer-section h3 { font-size:1.1rem; }
+            .social-links a { width:45px; height:45px; font-size:1.25rem; }
+        }
+        
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .btn, .service-card, .user-type-option, .star { 
+                -webkit-tap-highlight-color: rgba(77, 168, 255, 0.2);
+                cursor:pointer;
+            }
+            .btn { min-height:44px; }
+            .nav-menu li a { min-height:44px; display:flex; align-items:center; }
+            .form-input, .form-input select { min-height:44px; font-size:16px; }
+            textarea { font-size:16px; }
         }
     </style>
 </head>
 <body>
-<!-- Navigation -->
 <nav>
 <div class="nav-container">
 <div class="logo">
 <div class="logo-icon">✓</div>
 <span>Usluga24</span>
 </div>
-<ul aria-label="Main navigation" class="nav-menu" role="navigation">
-<li><a class="active" data-i18n="nav.home" onclick="showPage('home')">Početna</a></li>
-<li><a data-i18n="nav.services" onclick="showPage('services')">Usluge</a></li>
-<li><a data-i18n="nav.pricing" onclick="showPage('pricing')">Cijene</a></li>
-<li><a data-i18n="nav.about" onclick="showPage('about')">O nama</a></li>
+<button aria-label="Toggle menu" class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+<ul aria-label="Main navigation" class="nav-menu" id="mainNav" role="navigation">
+<li><a class="active" data-i18n="nav.home" onclick="showPage('home'); closeMobileMenu()">Početna</a></li>
+<li><a data-i18n="nav.services" onclick="showPage('services'); closeMobileMenu()">Usluge</a></li>
+<li><a data-i18n="nav.pricing" onclick="showPage('pricing'); closeMobileMenu()">Cijene</a></li>
+<li><a data-i18n="nav.about" onclick="showPage('about'); closeMobileMenu()">O nama</a></li>
 </ul>
 <div class="nav-actions">
 <select aria-label="Choose language" class="language-selector" id="langSelector">
@@ -150,10 +214,9 @@
 </div>
 </div>
 </nav>
-<!-- HOME PAGE -->
+
 <section class="page-section active" id="home">
 <div class="container">
-<!-- Hero Section -->
 <div class="hero">
 <h1 data-i18n="hero.title">Pronađi profesionalce i usluge u par klikova</h1>
 <p data-i18n="hero.subtitle">Bilo da tražiš majstora, freelancera ili tvrtku – Usluga24 povezuje te s najboljim pružateljima usluga.</p>
@@ -162,7 +225,7 @@
 <button class="btn btn-outline" data-i18n="hero.become_provider" onclick="openModal('signupModal')">Postani pružatelj usluga</button>
 </div>
 </div>
-<!-- Development Notice -->
+
 <div class="dev-notice">
 <div class="dev-notice-icon">🚧</div>
 <div class="dev-notice-content">
@@ -170,7 +233,7 @@
 <p data-i18n="dev.text">Usluga24 se trenutno razvija. Uskoro ćemo vam pružiti najbolju platformu za pronalaženje i oglašavanje usluga!</p>
 </div>
 </div>
-<!-- Search Box -->
+
 <div class="search-box">
 <form class="search-form" onsubmit="event.preventDefault(); alert(translations[currentLang]['alerts.searchComingSoon']);">
 <input class="form-input" data-i18n-placeholder="search.service_placeholder" id="serviceInput" placeholder="Koja usluga ti treba?" required="" type="text"/>
@@ -178,7 +241,7 @@
 <button class="btn btn-primary" data-i18n="search.button" type="submit">Pretraži</button>
 </form>
 </div>
-<!-- Trust Signals -->
+
 <div class="trust-signals">
 <div class="trust-item">
 <h3>0</h3>
@@ -193,7 +256,7 @@
 <p data-i18n="trust.languages_available">Jezika dostupno</p>
 </div>
 </div>
-<!-- How It Works -->
+
 <div class="how-it-works">
 <h2 data-i18n="how.title">Kako funkcionira</h2>
 <div class="steps">
@@ -216,7 +279,7 @@
 </div>
 </div>
 </section>
-<!-- SERVICES PAGE -->
+
 <section class="page-section" id="services">
 <div class="container">
 <h1 data-i18n="services.title" style="text-align:center; color:var(--primary-navy); margin-bottom:3rem;">Popularne usluge</h1>
@@ -246,7 +309,7 @@
 <h3 data-i18n="services.events">Eventi</h3>
 </div>
 <div class="service-card">
-<div class="service-icon">✏️</div>
+<div class="service-icon">✍️</div>
 <h3 data-i18n="services.freelance">Freelance</h3>
 </div>
 <div class="service-card">
@@ -254,7 +317,7 @@
 <h3 data-i18n="services.b2b">B2B usluge</h3>
 </div>
 </div>
-<!-- Review Form -->
+
 <div class="review-form">
 <h2 data-i18n="review.heading" style="color:var(--primary-navy); margin-bottom:1rem;">Ostavi recenziju</h2>
 <p data-i18n="review.text" style="color:var(--text-light); margin-bottom:2rem;">Pomozi drugima da pronađu najbolje pružatelje usluga</p>
@@ -278,7 +341,7 @@
 </div>
 </div>
 </section>
-<!-- PRICING PAGE -->
+
 <section class="page-section" id="pricing">
 <div class="container">
 <div class="dev-notice">
@@ -293,7 +356,6 @@
 <h2 data-i18n="pricing.title">Odaberi plan koji odgovara tebi</h2>
 <p data-i18n="pricing.subtitle" style="text-align:center; color:var(--text-light); margin-bottom:3rem;">Svi planovi uključuju neograničeno slanje poruka</p>
 <div class="pricing-grid">
-<!-- Free Trial -->
 <div class="pricing-card">
 <h3 data-i18n="pricing.free.title">Besplatno probno</h3>
 <div class="price"><span data-i18n="pricing.free.price">0€</span><span>/14 dana</span></div>
@@ -305,7 +367,7 @@
 </ul>
 <button class="btn btn-outline" data-i18n="pricing.free.cta" onclick="openModal('signupModal')" style="width:100%;">Počni besplatno</button>
 </div>
-<!-- Standard -->
+
 <div class="pricing-card">
 <h3 data-i18n="pricing.standard.title">Standard</h3>
 <div class="price"><span data-i18n="pricing.standard.price">5€</span><span>/mjesec</span></div>
@@ -318,7 +380,7 @@
 </ul>
 <button class="btn btn-outline" data-i18n="pricing.standard.cta" onclick="openModal('signupModal')" style="width:100%;">Odaberi plan</button>
 </div>
-<!-- Premium -->
+
 <div class="pricing-card popular">
 <div class="pricing-badge" data-i18n="pricing.premium.badge">POPULARNO</div>
 <h3 data-i18n="pricing.premium.title">Premium</h3>
@@ -333,7 +395,7 @@
 </ul>
 <button class="btn btn-primary" data-i18n="pricing.premium.cta" onclick="openModal('signupModal')" style="width:100%; background:white; color:var(--primary-blue);">Odaberi Premium</button>
 </div>
-<!-- Boost -->
+
 <div class="pricing-card">
 <h3 data-i18n="pricing.boost.title">Boost</h3>
 <div class="price"><span data-i18n="pricing.boost.price">4.99€</span><span><br/>jednokratno</span></div>
@@ -350,7 +412,7 @@
 </div>
 </div>
 </section>
-<!-- ABOUT PAGE -->
+
 <section class="page-section" id="about">
 <div class="container">
 <h1 data-i18n="about.title" style="text-align:center; color:var(--primary-navy); margin-bottom:2rem;">O Usluga24</h1>
@@ -379,10 +441,10 @@
 <div style="background:var(--light-gray); padding:3rem; border-radius:16px; margin:3rem 0;">
 <h2 data-i18n="about.mission.title" style="color:var(--primary-navy); margin-bottom:1rem;">Naša misija</h2>
 <p data-i18n="about.mission.text" style="color:var(--text-dark); line-height:1.8;">
-                        Omogućiti korisnicima da brzo pronađu profesionalce i tvrtke za bilo koju uslugu, 
-                        a pružateljima usluga da dobiju nove klijente i povećaju vidljivost svojih ponuda. 
-                        Od malih obrtnika do velikih kompanija - Usluga24 je platforma za sve.
-                    </p>
+Omogućiti korisnicima da brzo pronađu profesionalce i tvrtke za bilo koju uslugu, 
+a pružateljima usluga da dobiju nove klijente i povećaju vidljivost svojih ponuda. 
+Od malih obrtnika do velikih kompanija - Usluga24 je platforma za sve.
+</p>
 </div>
 <div style="text-align:center; margin:3rem 0;">
 <h2 data-i18n="contact.title" style="color:var(--primary-navy); margin-bottom:2rem;">Kontakt</h2>
@@ -392,17 +454,17 @@
 </div>
 </div>
 </section>
-<!-- Social Icons Fix -->
+
 <footer>
 <div class="footer-content">
 <div class="footer-section">
 <h3 data-i18n="footer.title">Usluga24</h3>
 <p data-i18n="footer.description" style="color:rgba(255,255,255,0.8);">
-    Globalna platforma za povezivanje s najboljim pružateljima usluga.
-    </p>
+Globalna platforma za povezivanje s najboljim pružateljima usluga.
+</p>
 <p data-i18n="footer.madein" style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:0.5rem;">
-    🇭🇷 Made in Croatia
-    </p>
+🇭🇷 Made in Croatia
+</p>
 <div class="social-links">
 <a aria-label="YouTube" href="https://www.youtube.com/@usluga24" rel="noopener" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
 <a aria-label="Instagram" href="https://www.instagram.com/usluga24.team" rel="noopener" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -433,8 +495,8 @@
 <div class="footer-section">
 <h3 data-i18n="footer.newsletter.title">Newsletter</h3>
 <p data-i18n="footer.newsletter.text" style="color:rgba(255,255,255,0.8); margin-bottom:1rem;">
-    Prijavite se za novosti i ponude
-    </p>
+Prijavite se za novosti i ponude
+</p>
 <form class="newsletter-form" onsubmit="event.preventDefault(); alert(translations[currentLang]['alerts.newsletterThanks']);">
 <input data-i18n-placeholder="footer.newsletter.placeholder" placeholder="" required="" type="email"/>
 <button class="btn btn-primary" type="submit">→</button>
@@ -445,8 +507,8 @@
 <p>© <span id="year">2025</span> Usluga24. <span data-i18n="footer.rights">Sva prava pridržana.</span></p>
 <p style="margin-top:0.5rem; font-size:0.875rem;">
 <a href="https://linktr.ee/usluga24" rel="noopener" style="color:var(--primary-blue); text-decoration:none;" target="_blank">
-    🔗 Linktr.ee/usluga24
-    </a>
+🔗 Linktr.ee/usluga24
+</a>
 </p>
 </div>
 </footer>
@@ -1634,134 +1696,126 @@
         'dev.pricing_notice.text': '为了收集用户反馈，应用在最初的几个月将完全免费。',
       }
     };
-    
-      
-    
+  function applyTranslations(lang) {
+currentLang = lang;
+if (translations[lang] && translations[lang]['meta.title']) {
+document.title = translations[lang]['meta.title'];
+}
+document.querySelectorAll('[data-i18n]').forEach(el => {
+const key = el.getAttribute('data-i18n');
+if (translations[lang] && translations[lang][key] !== undefined) {
+el.textContent = translations[lang][key];
+}
+});
+document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+const key = el.getAttribute('data-i18n-placeholder');
+if (translations[lang] && translations[lang][key] !== undefined) {
+el.setAttribute('placeholder', translations[lang][key]);
+}
+});
+}
 
-    function applyTranslations(lang) {
-      currentLang = lang;
-      
-      // set document title meta
-      if (translations[lang] && translations[lang]['meta.title']) {
-        document.title = translations[lang]['meta.title'];
-      }
-      
-      // data-i18n -> textContent
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key] !== undefined) {
-          el.textContent = translations[lang][key];
-        }
-      });
-      
-      // data-i18n-placeholder -> placeholder attribute
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[lang] && translations[lang][key] !== undefined) {
-          el.setAttribute('placeholder', translations[lang][key]);
-        }
-      });
-    }
+document.addEventListener('DOMContentLoaded', () => {
+applyTranslations(currentLang);
+const sel = document.getElementById('langSelector');
+sel.value = currentLang;
+sel.addEventListener('change', function() {
+applyTranslations(this.value);
+try { localStorage.setItem('usluga24_lang', this.value); } catch(e){}
+});
+try {
+const saved = localStorage.getItem('usluga24_lang');
+if (saved && translations[saved]) {
+sel.value = saved;
+applyTranslations(saved);
+}
+} catch(e){}
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+});
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      // Set initial translations
-      applyTranslations(currentLang);
+function toggleMobileMenu() {
+const nav = document.getElementById('mainNav');
+nav.classList.toggle('show');
+}
 
-      // wire lang selector
-      const sel = document.getElementById('langSelector');
-      sel.value = currentLang;
-      sel.addEventListener('change', function() {
-        applyTranslations(this.value);
-        try { localStorage.setItem('usluga24_lang', this.value); } catch(e){}
-      });
+function closeMobileMenu() {
+const nav = document.getElementById('mainNav');
+if (window.innerWidth <= 968) {
+nav.classList.remove('show');
+}
+}
 
-      // load lang from storage if available
-      try {
-        const saved = localStorage.getItem('usluga24_lang');
-        if (saved && translations[saved]) {
-          sel.value = saved;
-          applyTranslations(saved);
-        }
-      } catch(e){}
+window.addEventListener('resize', function() {
+const nav = document.getElementById('mainNav');
+if (window.innerWidth <= 968) {
+nav.classList.remove('show');
+}
+});
 
-      // set year
-      const yearEl = document.getElementById('year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-    });
+function showPage(pageId) {
+document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+const el = document.getElementById(pageId);
+if (el) el.classList.add('active');
+document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+const clickedLink = Array.from(document.querySelectorAll('.nav-menu a')).find(
+link => link.getAttribute('onclick')?.includes(pageId)
+);
+if (clickedLink) clickedLink.classList.add('active');
+window.scrollTo({top:0, behavior:'smooth'});
+}
 
-    // Page Navigation
-    function showPage(pageId) {
-        document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
-        const el = document.getElementById(pageId);
-        if (el) el.classList.add('active');
+function openModal(modalId) { 
+const modal = document.getElementById(modalId);
+modal.classList.add('active'); 
+document.body.style.overflow='hidden';
+setTimeout(() => {
+applyTranslations(currentLang);
+}, 50);
+}
 
-        document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
-        const clickedLink = Array.from(document.querySelectorAll('.nav-menu a')).find(
-            link => link.getAttribute('onclick')?.includes(pageId)
-        );
-        if (clickedLink) clickedLink.classList.add('active');
+function closeModal(modalId) { 
+document.getElementById(modalId).classList.remove('active'); 
+document.body.style.overflow='auto'; 
+}
 
-        window.scrollTo({top:0, behavior:'smooth'});
-    }
+document.querySelectorAll('.modal').forEach(modal => {
+modal.addEventListener('click', function(e) {
+if (e.target === this) closeModal(this.id);
+});
+});
 
-    // Modal Functions
-    function openModal(modalId) { 
-        const modal = document.getElementById(modalId);
-        modal.classList.add('active'); 
-        document.body.style.overflow='hidden';
-        
-        // Force re-apply translations after modal is visible
-        setTimeout(() => {
-            applyTranslations(currentLang);
-        }, 50);
-    }
-    
-    function closeModal(modalId) { 
-        document.getElementById(modalId).classList.remove('active'); 
-        document.body.style.overflow='auto'; 
-    }
+let selectedUserType = 'client';
+function selectUserType(type) {
+selectedUserType = type;
+document.querySelectorAll('.user-type-option').forEach(option => option.classList.remove('active'));
+const options = document.querySelectorAll('.user-type-option');
+if (type === 'client') {
+options[0].classList.add('active');
+} else {
+options[1].classList.add('active');
+}
+const providerFields = document.getElementById('providerFields');
+if (type === 'provider') providerFields.style.display='block'; else providerFields.style.display='none';
+}
 
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === this) closeModal(this.id);
-      });
-    });
+let selectedRating = 0;
+function setRating(rating) {
+selectedRating = rating;
+const stars = document.querySelectorAll('.star');
+stars.forEach((star, index) => {
+if (index < rating) star.classList.add('active'); else star.classList.remove('active');
+});
+}
 
-    // User Type Selection
-    let selectedUserType = 'client';
-    function selectUserType(type) {
-      selectedUserType = type;
-      document.querySelectorAll('.user-type-option').forEach(option => option.classList.remove('active'));
-      const options = document.querySelectorAll('.user-type-option');
-      if (type === 'client') {
-        options[0].classList.add('active');
-      } else {
-        options[1].classList.add('active');
-      }
-      const providerFields = document.getElementById('providerFields');
-      if (type === 'provider') providerFields.style.display='block'; else providerFields.style.display='none';
-    }
+function handleLogin() {
+alert(translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon');
+}
 
-    // Star Rating
-    let selectedRating = 0;
-    function setRating(rating) {
-      selectedRating = rating;
-      const stars = document.querySelectorAll('.star');
-      stars.forEach((star, index) => {
-        if (index < rating) star.classList.add('active'); else star.classList.remove('active');
-      });
-    }
-
-    // Form Handlers
-    function handleLogin() {
-      alert(translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon');
-    }
-    
-    function handleSignup() {
-      const userTypeText = selectedUserType === 'client' ? (translations[currentLang]['modal.signup.client']||'client') : (translations[currentLang]['modal.signup.provider']||'provider');
-      alert((translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon') + "\n\n" + (translations[currentLang]['modal.signup.title']||'Sign up') + ': ' + userTypeText);
-    }
+function handleSignup() {
+const userTypeText = selectedUserType === 'client' ? (translations[currentLang]['modal.signup.client']||'client') : (translations[currentLang]['modal.signup.provider']||'provider');
+alert((translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon') + "\n\n" + (translations[currentLang]['modal.signup.title']||'Sign up') + ': ' + userTypeText);
+}
 </script>
 </body>
 </html>
