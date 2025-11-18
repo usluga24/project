@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="meta.title">Usluga24 - Pronađi profesionalce i usluge u par klikova</title>
+<style>
+        /* (isti CSS kao prije — skraćeno u prikazu, pasteaj svoj postojeći CSS ili zadrži ovaj) */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --primary-navy: #1A2F4B;
+            --primary-blue: #4DA8FF;
+            --accent-red: #EF4444;
+            --light-gray: #F3F4F6;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color:var(--text-dark); line-height:1.6; overflow-x:hidden; }
+        nav { background:var(--white); box-shadow:0 2px 10px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; padding:1rem 0; }
+        .nav-container { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; }
+        .logo { display:flex; align-items:center; gap:0.5rem; font-size:1.5rem; font-weight:bold; color:var(--primary-navy); }
+        .logo-icon { width:32px; height:32px; background:var(--accent-red); display:flex; align-items:center; justify-content:center; border-radius:4px; color:white; font-size:1.2rem; }
+        .nav-menu { display:flex; gap:2rem; list-style:none; }
+        .nav-menu li a { color:var(--text-dark); text-decoration:none; font-weight:500; transition:color 0.3s; cursor:pointer; }
+        .nav-menu li a:hover, .nav-menu li a.active { color:var(--primary-blue); }
+        .nav-actions { display:flex; gap:1rem; align-items:center; }
+        .language-selector { padding:0.5rem 1rem; border:2px solid var(--primary-blue); border-radius:8px; background:white; color:var(--primary-navy); font-weight:600; cursor:pointer; transition: all 0.3s; }
+        .language-selector:hover { background:var(--primary-blue); color:white; }
+        .btn { padding:0.75rem 1.5rem; border-radius:8px; font-weight:600; text-decoration:none; transition: all 0.3s; cursor:pointer; border:none; display:inline-block; }
+        .btn-primary { background:var(--primary-blue); color:white; }
+        .btn-primary:hover { background:#3B8FE8; transform:translateY(-2px); }
+        .btn-outline { background:transparent; border:2px solid var(--primary-navy); color:var(--primary-navy); }
+        .btn-outline:hover { background:var(--primary-navy); color:white; }
+        .page-section { display:none; min-height:calc(100vh - 80px); padding:4rem 2rem; }
+        .page-section.active { display:block; }
+        .container { max-width:1200px; margin:0 auto; }
+        .hero { text-align:center; padding:4rem 0; }
+        .hero h1 { font-size:3rem; color:var(--primary-navy); margin-bottom:1rem; }
+        .hero p { font-size:1.25rem; color:var(--text-light); margin-bottom:2rem; }
+        .hero-cta { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+        .search-box { background:white; padding:3rem; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.1); margin:3rem 0; }
+        .search-form { display:grid; grid-template-columns:1fr 1fr auto; gap:1rem; }
+        .form-input { padding:1rem; border:2px solid #E5E7EB; border-radius:8px; font-size:1rem; }
+        .form-input:focus { outline:none; border-color:var(--primary-blue); }
+        .trust-signals { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin:4rem 0; text-align:center; }
+        .trust-item h3 { font-size:2.5rem; color:var(--primary-blue); margin-bottom:0.5rem; }
+        .trust-item p { color:var(--text-light); }
+        .how-it-works { padding:4rem 0; border-radius:16px; margin:3rem 0;}
+        .how-it-works h2 { text-align:center; font-size:2.5rem; color:var(--primary-navy); margin-bottom:3rem; }
+        .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; }
+        .step { background:white; padding:2rem; border-radius:12px; text-align:center; }
+        .step-number { width:60px; height:60px; background:var(--primary-blue); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:bold; margin:0 auto 1rem; }
+        .step h3 { color:var(--primary-navy); margin-bottom:1rem; }
+        .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1.5rem; margin:3rem 0; }
+        .service-card { background:white; padding:2rem; border-radius:12px; text-align:center; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; cursor:pointer; }
+        .service-card:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.15); }
+        .service-icon { font-size:3rem; margin-bottom:1rem; }
+        .pricing-section { padding:4rem 0; }
+        .pricing-section h2 { text-align:center; font-size:2.5rem; color:var(--primary-navy); margin-bottom:3rem; }
+        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem; margin-top:3rem; }
+        .pricing-card { background:white; border:2px solid #E5E7EB; border-radius:16px; padding:2rem; text-align:center; transition: all 0.3s; position:relative; }
+        .pricing-card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.1); }
+        .pricing-card.popular { background:linear-gradient(135deg,var(--primary-blue) 0%, #3B8FE8 100%); color:white; transform:scale(1.05); }
+        .pricing-badge { background:var(--accent-red); color:white; padding:0.5rem 1rem; border-radius:20px; font-size:0.875rem; font-weight:bold; position:absolute; top:-15px; left:50%; transform:translateX(-50%); }
+        .pricing-card h3 { font-size:1.5rem; margin-bottom:1rem; }
+        .pricing-card .price { font-size:2.5rem; font-weight:bold; margin:1rem 0; }
+        .pricing-features { list-style:none; margin:2rem 0; text-align:left; }
+        .pricing-features li { padding:0.5rem 0; border-bottom:1px solid rgba(0,0,0,0.1); }
+        .pricing-card.popular .pricing-features li { border-bottom-color:rgba(255,255,255,0.2); }
+        footer { background:var(--primary-navy); color:white; padding:4rem 2rem 2rem; }
+        .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:3rem; }
+        .footer-section h3 { margin-bottom:1rem; color:var(--primary-blue); }
+        .footer-section ul { list-style:none; }
+        .footer-section ul li { margin-bottom:0.5rem; }
+        .footer-section a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.3s; }
+        .footer-section a:hover { color:var(--primary-blue); }
+        .social-links { display:grid; grid-template-columns:repeat(auto-fit,minmax(50px,1fr)); gap:1rem; margin-top:1rem; max-width:400px; }
+        .social-links a { width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.3s; font-size:1.5rem; text-decoration:none; }
+        .social-links a:hover { background:var(--primary-blue); transform:translateY(-3px) scale(1.1); box-shadow:0 5px 15px rgba(77,168,255,0.4); }
+        .newsletter-form { display:flex; gap:1rem; margin-top:1rem; }
+        .newsletter-form input { flex:1; padding:0.75rem; border:none; border-radius:8px; }
+        .footer-bottom { text-align:center; margin-top:3rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); }
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; align-items:center; justify-content:center; }
+        .modal.active { display:flex; }
+        .modal-content { background:white; padding:3rem; border-radius:16px; max-width:500px; width:90%; max-height:90vh; overflow-y:auto; }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; }
+        .modal-header h2 { color:var(--primary-navy); }
+        .close-modal { background:none; border:none; font-size:2rem; cursor:pointer; color:var(--text-light); }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; font-weight:600; color:var(--primary-navy); }
+        .user-type-selector { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem; }
+        .user-type-option { padding:1.5rem; border:2px solid #E5E7EB; border-radius:12px; text-align:center; cursor:pointer; transition:all 0.3s; }
+        .user-type-option.active { border-color:var(--primary-blue); background:rgba(77,168,255,0.1); }
+        .dev-notice { background:linear-gradient(135deg,#FEF3C7 0%, #FDE68A 100%); border-left:4px solid #F59E0B; padding:1.5rem; border-radius:8px; margin:2rem 0; display:flex; align-items:center; gap:1rem; }
+        .dev-notice-icon { font-size:2rem; }
+        .dev-notice-content h3 { color:#92400E; margin-bottom:0.5rem; }
+        .dev-notice-content p { color:#78350F; }
+        .review-form { background:var(--light-gray); padding:2rem; border-radius:12px; margin:2rem 0; }
+        .star-rating { display:flex; gap:0.5rem; font-size:2rem; margin:1rem 0; }
+        .star { cursor:pointer; color:#D1D5DB; transition:color 0.3s; }
+        .star.active, .star:hover { color:#FBBF24; }
+        textarea { width:100%; padding:1rem; border:2px solid #E5E7EB; border-radius:8px; font-family:inherit; resize:vertical; min-height:120px; }
+        textarea:focus { outline:none; border-color:var(--primary-blue); }
+        @media (max-width:768px) {
+            .nav-menu { display:none; }
+            .nav-actions { gap:0.5rem; }
+            .language-selector { padding:0.5rem; font-size:0.875rem; }
+            .btn { padding:0.6rem 1rem; font-size:0.875rem; }
+            .hero h1 { font-size:2rem; }
+            .hero p { font-size:1rem; }
+            .search-form { grid-template-columns:1fr; }
+            .trust-signals { grid-template-columns:1fr; }
+            .pricing-grid { grid-template-columns:1fr; }
+            .pricing-card.popular { transform:scale(1); }
+            .footer-content { grid-template-columns:1fr; gap:2rem; }
+            .modal-content { padding:2rem; width:95%; }
+            .social-links { max-width:100%; }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+<div class="nav-container">
+<div class="logo">
+<div class="logo-icon">✓</div>
+<span>Usluga24</span>
+</div>
+<ul aria-label="Main navigation" class="nav-menu" role="navigation">
+<li><a class="active" data-i18n="nav.home" onclick="showPage('home')">Početna</a></li>
+<li><a data-i18n="nav.services" onclick="showPage('services')">Usluge</a></li>
+<li><a data-i18n="nav.pricing" onclick="showPage('pricing')">Cijene</a></li>
+<li><a data-i18n="nav.about" onclick="showPage('about')">O nama</a></li>
+</ul>
+<div class="nav-actions">
+<select aria-label="Choose language" class="language-selector" id="langSelector">
+<option value="hr">HR</option>
+<option value="en">EN</option>
+<option value="de">DE</option>
+<option value="it">IT</option>
+<option value="ru">RU</option>
+<option value="fr">FR</option>
+<option value="sr">SR</option>
+<option value="zh">ZH</option>
+</select>
+<button class="btn btn-outline" data-i18n="btn.login" onclick="openModal('loginModal')">Prijava</button>
+<button class="btn btn-primary" data-i18n="btn.signup" onclick="openModal('signupModal')">Registracija</button>
+</div>
+</div>
+</nav>
+<!-- HOME PAGE -->
+<section class="page-section active" id="home">
+<div class="container">
+<!-- Hero Section -->
+<div class="hero">
+<h1 data-i18n="hero.title">Pronađi profesionalce i usluge u par klikova</h1>
+<p data-i18n="hero.subtitle">Bilo da tražiš majstora, freelancera ili tvrtku – Usluga24 povezuje te s najboljim pružateljima usluga.</p>
+<div class="hero-cta">
+<button class="btn btn-primary" data-i18n="hero.download">📱 Preuzmi aplikaciju</button>
+<button class="btn btn-outline" data-i18n="hero.become_provider" onclick="openModal('signupModal')">Postani pružatelj usluga</button>
+</div>
+</div>
+<!-- Development Notice -->
+<div class="dev-notice">
+<div class="dev-notice-icon">🚧</div>
+<div class="dev-notice-content">
+<h3 data-i18n="dev.title">Platforma u izradi</h3>
+<p data-i18n="dev.text">Usluga24 se trenutno razvija. Uskoro ćemo vam pružiti najbolju platformu za pronalaženje i oglašavanje usluga!</p>
+</div>
+</div>
+<!-- Search Box -->
+<div class="search-box">
+<form class="search-form" onsubmit="event.preventDefault(); alert(translations[currentLang]['alerts.searchComingSoon']);">
+<input class="form-input" data-i18n-placeholder="search.service_placeholder" id="serviceInput" placeholder="Koja usluga ti treba?" required="" type="text"/>
+<input class="form-input" data-i18n-placeholder="search.location_placeholder" id="locationInput" placeholder="Grad ili lokacija" required="" type="text"/>
+<button class="btn btn-primary" data-i18n="search.button" type="submit">Pretraži</button>
+</form>
+</div>
+<!-- Trust Signals -->
+<div class="trust-signals">
+<div class="trust-item">
+<h3>0</h3>
+<p data-i18n="trust.registered_providers">Registriranih pružatelja</p>
+</div>
+<div class="trust-item">
+<h3>0</h3>
+<p data-i18n="trust.completed_jobs">Završenih poslova</p>
+</div>
+<div class="trust-item">
+<h3>8</h3>
+<p data-i18n="trust.languages_available">Jezika dostupno</p>
+</div>
+</div>
+<!-- How It Works -->
+<div class="how-it-works">
+<h2 data-i18n="how.title">Kako funkcionira</h2>
+<div class="steps">
+<div class="step">
+<div class="step-number">1</div>
+<h3 data-i18n="how.step1.title">Pretraži</h3>
+<p data-i18n="how.step1.text">Pretraži usluge po kategoriji i lokaciji</p>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<h3 data-i18n="how.step2.title">Kontaktiraj</h3>
+<p data-i18n="how.step2.text">Kontaktiraj pružatelja usluge direktno</p>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<h3 data-i18n="how.step3.title">Riješi</h3>
+<p data-i18n="how.step3.text">Riješi problem brzo i pouzdano</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SERVICES PAGE -->
+<section class="page-section" id="services">
+<div class="container">
+<h1 data-i18n="services.title" style="text-align:center; color:var(--primary-navy); margin-bottom:3rem;">Popularne usluge</h1>
+<div class="services-grid">
+<div class="service-card">
+<div class="service-icon">🔧</div>
+<h3 data-i18n="services.repair">Popravci</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">🧹</div>
+<h3 data-i18n="services.cleaning">Čišćenje</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">🚚</div>
+<h3 data-i18n="services.delivery">Dostava</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">📦</div>
+<h3 data-i18n="services.moving">Selidbe</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">💻</div>
+<h3 data-i18n="services.it">IT usluge</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">🎉</div>
+<h3 data-i18n="services.events">Eventi</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">✏️</div>
+<h3 data-i18n="services.freelance">Freelance</h3>
+</div>
+<div class="service-card">
+<div class="service-icon">🏢</div>
+<h3 data-i18n="services.b2b">B2B usluge</h3>
+</div>
+</div>
+<!-- Review Form -->
+<div class="review-form">
+<h2 data-i18n="review.heading" style="color:var(--primary-navy); margin-bottom:1rem;">Ostavi recenziju</h2>
+<p data-i18n="review.text" style="color:var(--text-light); margin-bottom:2rem;">Pomozi drugima da pronađu najbolje pružatelje usluga</p>
+<form onsubmit="event.preventDefault(); alert(translations[currentLang]['alerts.reviewThanks']);">
+<div class="form-group">
+<label data-i18n="review.rating_label">Ocjena</label>
+<div class="star-rating" id="starRating">
+<span class="star" onclick="setRating(1)">★</span>
+<span class="star" onclick="setRating(2)">★</span>
+<span class="star" onclick="setRating(3)">★</span>
+<span class="star" onclick="setRating(4)">★</span>
+<span class="star" onclick="setRating(5)">★</span>
+</div>
+</div>
+<div class="form-group">
+<label data-i18n="review.your_review_label">Tvoja recenzija</label>
+<textarea data-i18n-placeholder="review.placeholder" placeholder="" required=""></textarea>
+</div>
+<button class="btn btn-primary" data-i18n="review.submit" type="submit">Pošalji recenziju</button>
+</form>
+</div>
+</div>
+</section>
+<!-- PRICING PAGE -->
+<section class="page-section" id="pricing">
+<div class="container">
+<div class="dev-notice">
+<div class="dev-notice-icon">ℹ️</div>
+<div class="dev-notice-content">
+<h3 data-i18n="dev.pricing_notice.title">Besplatno u početku</h3>
+<p data-i18n="dev.pricing_notice.text">Aplikacija će prvih nekoliko mjeseci biti potpuno besplatna za sve korisnike radi prikupljanja feedbacka.</p>
+</div>
+</div>
+
+<div class="pricing-section">
+<h2 data-i18n="pricing.title">Odaberi plan koji odgovara tebi</h2>
+<p data-i18n="pricing.subtitle" style="text-align:center; color:var(--text-light); margin-bottom:3rem;">Svi planovi uključuju neograničeno slanje poruka</p>
+<div class="pricing-grid">
+<!-- Free Trial -->
+<div class="pricing-card">
+<h3 data-i18n="pricing.free.title">Besplatno probno</h3>
+<div class="price"><span data-i18n="pricing.free.price">0€</span><span>/14 dana</span></div>
+<ul class="pricing-features">
+<li data-i18n="pricing.free.f1">✓ Osnovni profil</li>
+<li data-i18n="pricing.free.f2">✓ Osnovna vidljivost</li>
+<li data-i18n="pricing.free.f3">✓ Neograničeno slanje poruka</li>
+<li data-i18n="pricing.free.f4">✓ Osnovna analitika</li>
+</ul>
+<button class="btn btn-outline" data-i18n="pricing.free.cta" onclick="openModal('signupModal')" style="width:100%;">Počni besplatno</button>
+</div>
+<!-- Standard -->
+<div class="pricing-card">
+<h3 data-i18n="pricing.standard.title">Standard</h3>
+<div class="price"><span data-i18n="pricing.standard.price">5€</span><span>/mjesec</span></div>
+<ul class="pricing-features">
+<li data-i18n="pricing.standard.f1">✓ Potpuni profil</li>
+<li data-i18n="pricing.standard.f2">✓ Standardna vidljivost</li>
+<li data-i18n="pricing.standard.f3">✓ Neograničeno slanje poruka</li>
+<li data-i18n="pricing.standard.f4">✓ Potpuna analitika</li>
+<li data-i18n="pricing.standard.f5">✓ Email podrška</li>
+</ul>
+<button class="btn btn-outline" data-i18n="pricing.standard.cta" onclick="openModal('signupModal')" style="width:100%;">Odaberi plan</button>
+</div>
+<!-- Premium -->
+<div class="pricing-card popular">
+<div class="pricing-badge" data-i18n="pricing.premium.badge">POPULARNO</div>
+<h3 data-i18n="pricing.premium.title">Premium</h3>
+<div class="price"><span data-i18n="pricing.premium.price">9.99€</span><span><br/>/mjesec</span></div>
+<ul class="pricing-features">
+<li data-i18n="pricing.premium.f1">✓ Prioritetni profil</li>
+<li data-i18n="pricing.premium.f2">✓ Povećana vidljivost</li>
+<li data-i18n="pricing.premium.f3">✓ Neograničeno slanje poruka</li>
+<li data-i18n="pricing.premium.f4">✓ Napredna analitika</li>
+<li data-i18n="pricing.premium.f5">✓ Prioritetna podrška</li>
+<li data-i18n="pricing.premium.f6">✓ Badge verifikacije</li>
+</ul>
+<button class="btn btn-primary" data-i18n="pricing.premium.cta" onclick="openModal('signupModal')" style="width:100%; background:white; color:var(--primary-blue);">Odaberi Premium</button>
+</div>
+<!-- Boost -->
+<div class="pricing-card">
+<h3 data-i18n="pricing.boost.title">Boost</h3>
+<div class="price"><span data-i18n="pricing.boost.price">4.99€</span><span><br/>jednokratno</span></div>
+<ul class="pricing-features">
+<li data-i18n="pricing.boost.f1">✓ Instant povećanje vidljivosti</li>
+<li data-i18n="pricing.boost.f2">✓ 7 dana na vrhu</li>
+<li data-i18n="pricing.boost.f3">✓ Neograničeno slanje poruka</li>
+<li data-i18n="pricing.boost.f4">✓ Potpuna analitika</li>
+<li data-i18n="pricing.boost.f5">✓ Dodaj bilo kojem planu</li>
+</ul>
+<button class="btn btn-outline" data-i18n="pricing.boost.cta" onclick="openModal('signupModal')" style="width:100%;">Aktiviraj Boost</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ABOUT PAGE -->
+<section class="page-section" id="about">
+<div class="container">
+<h1 data-i18n="about.title" style="text-align:center; color:var(--primary-navy); margin-bottom:2rem;">O Usluga24</h1>
+<div style="max-width:800px; margin:0 auto;">
+<p data-i18n="about.subtitle" style="font-size:1.25rem; color:var(--text-light); text-align:center; margin-bottom:3rem;">Globalna platforma za pronalaženje i oglašavanje usluga i pružatelja usluga</p>
+<div class="how-it-works">
+<h2 data-i18n="about.values.title">Naše vrijednosti</h2>
+<div class="steps">
+<div class="step">
+<div class="step-number">🌍</div>
+<h3 data-i18n="about.values.global.title">Globalno dostupno</h3>
+<p data-i18n="about.values.global.text">Podržavamo 8 jezika: HR, EN, DE, IT, RU, FR, SR, ZH</p>
+</div>
+<div class="step">
+<div class="step-number">✓</div>
+<h3 data-i18n="about.values.trust.title">Pouzdano</h3>
+<p data-i18n="about.values.trust.text">Verified providers i sustav recenzija</p>
+</div>
+<div class="step">
+<div class="step-number">⚡</div>
+<h3 data-i18n="about.values.fast.title">Brzo i jednostavno</h3>
+<p data-i18n="about.values.fast.text">Rješavanje problema u nekoliko klikova</p>
+</div>
+</div>
+</div>
+<div style="background:var(--light-gray); padding:3rem; border-radius:16px; margin:3rem 0;">
+<h2 data-i18n="about.mission.title" style="color:var(--primary-navy); margin-bottom:1rem;">Naša misija</h2>
+<p data-i18n="about.mission.text" style="color:var(--text-dark); line-height:1.8;">
+                        Omogućiti korisnicima da brzo pronađu profesionalce i tvrtke za bilo koju uslugu, 
+                        a pružateljima usluga da dobiju nove klijente i povećaju vidljivost svojih ponuda. 
+                        Od malih obrtnika do velikih kompanija - Usluga24 je platforma za sve.
+                    </p>
+</div>
+<div style="text-align:center; margin:3rem 0;">
+<h2 data-i18n="contact.title" style="color:var(--primary-navy); margin-bottom:2rem;">Kontakt</h2>
+<p data-i18n="contact.email" style="color:var(--text-light); margin-bottom:1rem;">Email: info@usluga24.com</p>
+<p data-i18n="contact.phone" style="color:var(--text-light);">Telefon: +385 1 234 5678</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Icons Fix -->
+<footer>
+<div class="footer-content">
+<div class="footer-section">
+<h3 data-i18n="footer.title">Usluga24</h3>
+<p data-i18n="footer.description" style="color:rgba(255,255,255,0.8);">
+    Globalna platforma za povezivanje s najboljim pružateljima usluga.
+    </p>
+<p data-i18n="footer.madein" style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:0.5rem;">
+    🇭🇷 Made in Croatia
+    </p>
+<div class="social-links">
+<a aria-label="YouTube" href="https://www.youtube.com/@usluga24" rel="noopener" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+<a aria-label="Instagram" href="https://www.instagram.com/usluga24.team" rel="noopener" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+<a aria-label="Threads" href="https://www.threads.com/@usluga24.team" rel="noopener" target="_blank" title="Threads"><i class="fab fa-threads"></i></a>
+<a aria-label="X (Twitter)" href="https://x.com/usluga24" rel="noopener" target="_blank" title="X"><i class="fab fa-x-twitter"></i></a>
+<a aria-label="TikTok" href="https://www.tiktok.com/@usluga24" rel="noopener" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+<a aria-label="Facebook" href="https://www.facebook.com/profile.php?id=61584073253451" rel="noopener" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+</div>
+</div>
+<div class="footer-section">
+<h3 data-i18n="footer.links.title">Brzi linkovi</h3>
+<ul>
+<li><a data-i18n="nav.home" onclick="showPage('home')">Početna</a></li>
+<li><a data-i18n="nav.services" onclick="showPage('services')">Usluge</a></li>
+<li><a data-i18n="nav.pricing" onclick="showPage('pricing')">Cijene</a></li>
+<li><a data-i18n="nav.about" onclick="showPage('about')">O nama</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h3 data-i18n="footer.support.title">Podrška</h3>
+<ul>
+<li><a data-i18n="footer.support.faq" href="#">FAQ</a></li>
+<li><a data-i18n="footer.support.contact" href="#">Kontakt</a></li>
+<li><a data-i18n="footer.support.tos" href="#">Uvjeti korištenja</a></li>
+<li><a data-i18n="footer.support.privacy" href="#">Privatnost</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h3 data-i18n="footer.newsletter.title">Newsletter</h3>
+<p data-i18n="footer.newsletter.text" style="color:rgba(255,255,255,0.8); margin-bottom:1rem;">
+    Prijavite se za novosti i ponude
+    </p>
+<form class="newsletter-form" onsubmit="event.preventDefault(); alert(translations[currentLang]['alerts.newsletterThanks']);">
+<input data-i18n-placeholder="footer.newsletter.placeholder" placeholder="" required="" type="email"/>
+<button class="btn btn-primary" type="submit">→</button>
+</form>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© <span id="year">2025</span> Usluga24. <span data-i18n="footer.rights">Sva prava pridržana.</span></p>
+<p style="margin-top:0.5rem; font-size:0.875rem;">
+<a href="https://linktr.ee/usluga24" rel="noopener" style="color:var(--primary-blue); text-decoration:none;" target="_blank">
+    🔗 Linktr.ee/usluga24
+    </a>
+</p>
+</div>
+</footer>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<!-- Login Modal -->
+<div aria-labelledby="loginTitle" aria-modal="true" class="modal" id="loginModal" role="dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h2 data-i18n="modal.login.title" id="loginTitle">Prijava</h2>
+<button class="close-modal" onclick="closeModal('loginModal')">×</button>
+</div>
+<div class="dev-notice">
+<div class="dev-notice-icon">ℹ️</div>
+<div class="dev-notice-content">
+<h3 data-i18n="dev.login_notice.title">Funkcija uskoro dostupna</h3>
+<p data-i18n="dev.login_notice.text">Prijava i registracija bit će omogućene kada aplikacija bude objavljena.
+        Aplikacija će prvih nekoliko mjeseci biti potpuno besplatna za sve korisnike radi prikupljanja feedbacka.</p>
+</div>
+</div>
+<form onsubmit="event.preventDefault(); handleLogin();">
+<div class="form-group">
+<label data-i18n="modal.login.email">Email</label>
+<input class="form-input" required="" type="email"/>
+</div>
+<div class="form-group">
+<label data-i18n="modal.login.password">Lozinka</label>
+<input class="form-input" required="" type="password"/>
+</div>
+<button class="btn btn-primary" data-i18n="modal.login.submit" style="width:100%; margin-bottom:1rem;" type="submit">Prijavi se</button>
+<p data-i18n="modal.login.no_account" style="text-align:center; color:var(--text-light);">Nemaš račun? <a href="#" onclick="closeModal('loginModal'); openModal('signupModal');" style="color:var(--primary-blue);">Registriraj se</a></p>
+</form>
+</div>
+</div>
+<!-- Signup Modal -->
+<div aria-labelledby="signupTitle" aria-modal="true" class="modal" id="signupModal" role="dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h2 data-i18n="modal.signup.title" id="signupTitle">Registracija</h2>
+<button class="close-modal" onclick="closeModal('signupModal')">×</button>
+</div>
+<div class="dev-notice">
+<div class="dev-notice-icon">ℹ️</div>
+<div class="dev-notice-content">
+<h3 data-i18n="dev.login_notice.title">Funkcija uskoro dostupna</h3>
+<p data-i18n="dev.login_notice.text">Prijava i registracija bit će omogućene kada aplikacija bude objavljena.
+        Aplikacija će prvih nekoliko mjeseci biti potpuno besplatna za sve korisnike radi prikupljanja feedbacka.</p>
+</div>
+</div>
+<div class="user-type-selector">
+<div class="user-type-option active" onclick="selectUserType('client')">
+<div style="font-size:2rem; margin-bottom:0.5rem;">👤</div>
+<strong data-i18n="modal.signup.client">Klijent</strong>
+<p data-i18n="modal.signup.client_text" style="font-size:0.875rem; color:var(--text-light); margin-top:0.5rem;">Tražim usluge</p>
+</div>
+<div class="user-type-option" onclick="selectUserType('provider')">
+<div style="font-size:2rem; margin-bottom:0.5rem;">💼</div>
+<strong data-i18n="modal.signup.provider">Pružatelj</strong>
+<p data-i18n="modal.signup.provider_text" style="font-size:0.875rem; color:var(--text-light); margin-top:0.5rem;">Nudim usluge</p>
+</div>
+</div>
+<form id="signupForm" onsubmit="event.preventDefault(); handleSignup();">
+<div class="form-group">
+<label data-i18n="form.fullname">Ime i prezime / Naziv tvrtke</label>
+<input class="form-input" required="" type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.email">Email</label>
+<input class="form-input" required="" type="email"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.phone">Telefon</label>
+<input class="form-input" required="" type="tel"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.password">Lozinka</label>
+<input class="form-input" required="" type="password"/>
+</div>
+<div id="providerFields" style="display:none;">
+<div class="form-group">
+<label data-i18n="form.location">Lokacija / Grad</label>
+<input class="form-input" type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="form.category">Kategorija usluge</label>
+<select class="form-input">
+<option data-i18n="form.category.select">Odaberi kategoriju</option>
+<option data-i18n="services.repair">Popravci</option>
+<option data-i18n="services.cleaning">Čišćenje</option>
+<option data-i18n="services.delivery">Dostava</option>
+<option data-i18n="services.moving">Selidbe</option>
+<option data-i18n="services.it">IT usluge</option>
+<option data-i18n="services.events">Eventi</option>
+<option data-i18n="services.freelance">Freelance</option>
+<option data-i18n="services.b2b">B2B usluge</option>
+</select>
+</div>
+<div class="form-group">
+<label data-i18n="form.description">Opis usluga</label>
+<textarea class="form-input" data-i18n-placeholder="form.description.placeholder" placeholder="" style="min-height:100px;"></textarea>
+</div>
+</div>
+<button class="btn btn-primary" data-i18n="modal.signup.submit" style="width:100%; margin-bottom:1rem;" type="submit">Registriraj se</button>
+<p data-i18n="modal.signup.have_account" style="text-align:center; color:var(--text-light);">Imaš račun? <a href="#" onclick="closeModal('signupModal'); openModal('loginModal');" style="color:var(--primary-blue);">Prijavi se</a></p>
+</form>
+</div>
+</div>
+<script>
+    // Current selected language
+    let currentLang = 'hr';
+    // Translations: comprehensive for visible UI (HR, EN, DE, IT, RU, FR, SR, ZH)
+    const translations = {
+      hr: {
+        'meta.title': 'Usluga24 - Pronađi profesionalce i usluge u par klikova',
+        'nav.home': 'Početna',
+        'nav.services': 'Usluge',
+        'nav.pricing': 'Cijene',
+        'nav.about': 'O nama',
+        'btn.login': 'Prijava',
+        'btn.signup': 'Registracija',
+        'hero.title': 'Pronađi profesionalce i usluge u par klikova',
+        'hero.subtitle': 'Bilo da tražiš majstora, freelancera ili tvrtku – Usluga24 povezuje te s najboljim pružateljima usluga.',
+        'hero.download': '📱 Preuzmi aplikaciju',
+        'hero.become_provider': 'Postani pružatelj usluga',
+        'dev.title': 'Platforma u izradi',
+        'dev.text': 'Usluga24 se trenutno razvija. Uskoro ćemo vam pružiti najbolju platformu za pronalaženje i oglašavanje usluga!',
+        'search.service_placeholder': 'Koja usluga ti treba?',
+        'search.location_placeholder': 'Grad ili lokacija',
+        'search.button': 'Pretraži',
+        'trust.registered_providers': 'Registriranih pružatelja',
+        'trust.completed_jobs': 'Završenih poslova',
+        'trust.languages_available': 'Jezika dostupno',
+        'how.title': 'Kako funkcionira',
+        'how.step1.title': 'Pretraži',
+        'how.step1.text': 'Pretraži usluge po kategoriji i lokaciji',
+        'how.step2.title': 'Kontaktiraj',
+        'how.step2.text': 'Kontaktiraj pružatelja usluge direktno',
+        'how.step3.title': 'Riješi',
+        'how.step3.text': 'Riješi problem brzo i pouzdano',
+        'services.title': 'Popularne usluge',
+        'services.repair': 'Popravci',
+        'services.cleaning': 'Čišćenje',
+        'services.delivery': 'Dostava',
+        'services.moving': 'Selidbe',
+        'services.it': 'IT usluge',
+        'services.events': 'Eventi',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'B2B usluge',
+        'review.heading': 'Ostavi recenziju',
+        'review.text': 'Pomozi drugima da pronađu najbolje pružatelje usluga',
+        'review.rating_label': 'Ocjena',
+        'review.your_review_label': 'Tvoja recenzija',
+        'review.placeholder': 'Opiši svoje iskustvo...',
+        'review.submit': 'Pošalji recenziju',
+        'pricing.title': 'Odaberi plan koji odgovara tebi',
+        'pricing.subtitle': 'Svi planovi uključuju neograničeno slanje poruka',
+        'pricing.free.title': 'Besplatno probno',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Osnovni profil',
+        'pricing.free.f2': '✓ Osnovna vidljivost',
+        'pricing.free.f3': '✓ Neograničeno slanje poruka',
+        'pricing.free.f4': '✓ Osnovna analitika',
+        'pricing.free.cta': 'Počni besplatno',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Potpuni profil',
+        'pricing.standard.f2': '✓ Standardna vidljivost',
+        'pricing.standard.f3': '✓ Neograničeno slanje poruka',
+        'pricing.standard.f4': '✓ Potpuna analitika',
+        'pricing.standard.f5': '✓ Email podrška',
+        'pricing.standard.cta': 'Odaberi plan',
+        'pricing.premium.badge': 'POPULARNO',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Prioritetni profil',
+        'pricing.premium.f2': '✓ Vrh kategorije',
+        'pricing.premium.f3': '✓ Neograničeno slanje poruka',
+        'pricing.premium.f4': '✓ Napredna analitika',
+        'pricing.premium.f5': '✓ Prioritetna podrška',
+        'pricing.premium.f6': '✓ Badge verifikacije',
+        'pricing.premium.cta': 'Odaberi Premium',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Instant povećanje vidljivosti',
+        'pricing.boost.f2': '✓ 7 dana na vrhu',
+        'pricing.boost.f3': '✓ Neograničeno slanje poruka',
+        'pricing.boost.f4': '✓ Potpuna analitika',
+        'pricing.boost.f5': '✓ Dodaj bilo kojem planu',
+        'pricing.boost.cta': 'Aktiviraj Boost',
+        'about.title': 'O Usluga24',
+        'about.subtitle': 'Globalna platforma za pronalaženje i oglašavanje usluga i pružatelja usluga',
+        'about.values.title': 'Naše vrijednosti',
+        'about.values.global.title': 'Globalno dostupno',
+        'about.values.global.text': 'Podržavamo 8 jezika: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Pouzdano',
+        'about.values.trust.text': 'Verified providers i sustav recenzija',
+        'about.values.fast.title': 'Brzo i jednostavno',
+        'about.values.fast.text': 'Rješavanje problema u nekoliko klikova',
+        'about.mission.title': 'Naša misija',
+        'about.mission.text': 'Omogućiti korisnicima da brzo pronađu profesionalce i tvrtke za bilo koju uslugu, a pružateljima usluga da dobiju nove klijente i povećaju vidljivost svojih ponuda. Od malih obrtnika do velikih kompanija - Usluga24 je platforma za sve.',
+        'contact.title': 'Kontakt',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Telefon: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Globalna platforma za povezivanje s najboljim pružateljima usluga.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Brzi linkovi',
+        'footer.support.title': 'Podrška',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Kontakt',
+        'footer.support.tos': 'Uvjeti korištenja',
+        'footer.support.privacy': 'Privatnost',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Prijavite se za novosti i ponude',
+        'footer.newsletter.placeholder': 'Vaš email',
+        'footer.rights': 'Sva prava pridržana.',
+        'modal.login.title': 'Prijava',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Lozinka',
+        'modal.login.submit': 'Prijavi se',
+        'modal.login.no_account': 'Nemaš račun? Registriraj se',
+        'modal.signup.title': 'Registracija',
+        'modal.signup.client': 'Klijent',
+        'modal.signup.client_text': 'Tražim usluge',
+        'modal.signup.provider': 'Pružatelj',
+        'modal.signup.provider_text': 'Nudim usluge',
+        'modal.signup.submit': 'Registriraj se',
+        'modal.signup.have_account': 'Imaš račun? Prijavi se',
+        'form.fullname': 'Ime i prezime / Naziv tvrtke',
+        'form.email': 'Email',
+        'form.phone': 'Telefon',
+        'form.password': 'Lozinka',
+        'form.location': 'Lokacija / Grad',
+        'form.category': 'Kategorija usluge',
+        'form.category.select': 'Odaberi kategoriju',
+        'form.description': 'Opis usluga',
+        'form.description.placeholder': 'Opiši što nudiš...',
+        // Alerts
+        'alerts.searchComingSoon': 'Pretraga uskoro dostupna!',
+        'alerts.reviewThanks': 'Hvala na recenziji! Uskoro će biti vidljiva.',
+        'alerts.newsletterThanks': 'Hvala na prijavi!',
+        'dev.login_notice.title': 'Funkcija uskoro dostupna',
+        'dev.login_notice.text': 'Prijava i registracija bit će omogućene kada aplikacija bude objavljena. Aplikacija će prvih nekoliko mjeseci biti potpuno besplatna za sve korisnike radi prikupljanja feedbacka.',
+        'dev.pricing_notice.title': 'Besplatno u početku',
+        'dev.pricing_notice.text': 'Aplikacija će prvih nekoliko mjeseci biti potpuno besplatna za sve korisnike radi prikupljanja feedbacka.',
+
+      },
+      en: {
+        'meta.title': 'Usluga24 - Find professionals and services in a few clicks',
+        'nav.home': 'Home',
+        'nav.services': 'Services',
+        'nav.pricing': 'Pricing',
+        'nav.about': 'About',
+        'btn.login': 'Login',
+        'btn.signup': 'Sign up',
+        'hero.title': 'Find professionals and services in a few clicks',
+        'hero.subtitle': 'Whether you need a handyman, freelancer or a company – Usluga24 connects you with the best service providers.',
+        'hero.download': '📱 Get the app',
+        'hero.become_provider': 'Become a provider',
+        'dev.title': 'Platform under development',
+        'dev.text': 'Usluga24 is under development. We will soon provide the best platform for finding and advertising services!',
+        'search.service_placeholder': 'What service do you need?',
+        'search.location_placeholder': 'City or location',
+        'search.button': 'Search',
+        'trust.registered_providers': 'Registered providers',
+        'trust.completed_jobs': 'Completed jobs',
+        'trust.languages_available': 'Languages available',
+        'how.title': 'How it works',
+        'how.step1.title': 'Search',
+        'how.step1.text': 'Search services by category and location',
+        'how.step2.title': 'Contact',
+        'how.step2.text': 'Contact the service provider directly',
+        'how.step3.title': 'Resolve',
+        'how.step3.text': 'Resolve the issue quickly and reliably',
+        'services.title': 'Popular services',
+        'services.repair': 'Repairs',
+        'services.cleaning': 'Cleaning',
+        'services.delivery': 'Delivery',
+        'services.moving': 'Moving',
+        'services.it': 'IT services',
+        'services.events': 'Events',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'B2B services',
+        'review.heading': 'Leave a review',
+        'review.text': 'Help others find the best service providers',
+        'review.rating_label': 'Rating',
+        'review.your_review_label': 'Your review',
+        'review.placeholder': 'Describe your experience...',
+        'review.submit': 'Send review',
+        'pricing.title': 'Choose the plan that suits you',
+        'pricing.subtitle': 'All plans include unlimited messaging',
+        'pricing.free.title': 'Free trial',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Basic profile',
+        'pricing.free.f2': '✓ Basic visibility',
+        'pricing.free.f3': '✓ Unlimited messaging',
+        'pricing.free.f4': '✓ Basic analytics',
+        'pricing.free.cta': 'Start free',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Full profile',
+        'pricing.standard.f2': '✓ Standard visibility',
+        'pricing.standard.f3': '✓ Unlimited messaging',
+        'pricing.standard.f4': '✓ Full analytics',
+        'pricing.standard.f5': '✓ Email support',
+        'pricing.standard.cta': 'Choose plan',
+        'pricing.premium.badge': 'POPULAR',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Priority profile',
+        'pricing.premium.f2': '✓ Top in category',
+        'pricing.premium.f3': '✓ Unlimited messaging',
+        'pricing.premium.f4': '✓ Advanced analytics',
+        'pricing.premium.f5': '✓ Priority support',
+        'pricing.premium.f6': '✓ Verification badge',
+        'pricing.premium.cta': 'Choose Premium',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Instant visibility boost',
+        'pricing.boost.f2': '✓ 7 days on top',
+        'pricing.boost.f3': '✓ Unlimited messaging',
+        'pricing.boost.f4': '✓ Full analytics',
+        'pricing.boost.f5': '✓ Add to any plan',
+        'pricing.boost.cta': 'Activate Boost',
+        'about.title': 'About Usluga24',
+        'about.subtitle': 'Global platform to find and advertise services and providers',
+        'about.values.title': 'Our values',
+        'about.values.global.title': 'Globally available',
+        'about.values.global.text': 'We support 8 languages: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Reliable',
+        'about.values.trust.text': 'Verified providers and review system',
+        'about.values.fast.title': 'Fast and simple',
+        'about.values.fast.text': 'Solve issues in a few clicks',
+        'about.mission.title': 'Our mission',
+        'about.mission.text': 'Enable users to quickly find professionals and companies for any service, and help providers get new clients and increase visibility. From small craftsmen to large companies - Usluga24 is a platform for everyone.',
+        'contact.title': 'Contact',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Phone: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Global platform connecting you with top service providers.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Quick links',
+        'footer.support.title': 'Support',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Contact',
+        'footer.support.tos': 'Terms of Use',
+        'footer.support.privacy': 'Privacy',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Sign up for news and offers',
+        'footer.newsletter.placeholder': 'Your email',
+        'footer.rights': 'All rights reserved.',
+        'modal.login.title': 'Login',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Password',
+        'modal.login.submit': 'Login',
+        'modal.login.no_account': 'No account? Sign up',
+        'modal.signup.title': 'Sign up',
+        'modal.signup.client': 'Client',
+        'modal.signup.client_text': 'I am looking for services',
+        'modal.signup.provider': 'Provider',
+        'modal.signup.provider_text': 'I offer services',
+        'modal.signup.submit': 'Sign up',
+        'modal.signup.have_account': 'Have an account? Login',
+        'form.fullname': 'Full name / Company name',
+        'form.email': 'Email',
+        'form.phone': 'Phone',
+        'form.password': 'Password',
+        'form.location': 'Location / City',
+        'form.category': 'Service category',
+        'form.category.select': 'Choose category',
+        'form.description': 'Service description',
+        'form.description.placeholder': 'Describe what you offer...',
+        'alerts.searchComingSoon': 'Search coming soon!',
+        'alerts.reviewThanks': 'Thanks for the review! It will be visible soon.',
+        'alerts.newsletterThanks': 'Thanks for subscribing!',
+        'dev.login_notice.title': 'Feature coming soon',
+        'dev.login_notice.text': 'Login and registration will be available once the app is released. The app will be completely free for the first few months to collect user feedback.',
+
+        'dev.pricing_notice.title': 'Free at launch',
+        'dev.pricing_notice.text': 'The app will be completely free for the first few months to collect feedback from users.',
+
+      },
+      de: {
+        'meta.title': 'Usluga24 - Finde Fachleute und Dienstleistungen in wenigen Klicks',
+        'nav.home': 'Start',
+        'nav.services': 'Dienstleistungen',
+        'nav.pricing': 'Preise',
+        'nav.about': 'Über uns',
+        'btn.login': 'Anmelden',
+        'btn.signup': 'Registrieren',
+        'hero.title': 'Finde Fachleute und Dienstleistungen in wenigen Klicks',
+        'hero.subtitle': 'Ob Handwerker, Freelancer oder Unternehmen – Usluga24 verbindet dich mit den besten Dienstleistern.',
+        'hero.download': '📱 App herunterladen',
+        'hero.become_provider': 'Anbieter werden',
+        'dev.title': 'Plattform in Entwicklung',
+        'dev.text': 'Usluga24 wird derzeit entwickelt. Bald bieten wir die beste Plattform zum Finden und Bewerben von Dienstleistungen!',
+        'search.service_placeholder': 'Welche Dienstleistung benötigst du?',
+        'search.location_placeholder': 'Stadt oder Ort',
+        'search.button': 'Suchen',
+        'trust.registered_providers': 'Registrierte Anbieter',
+        'trust.completed_jobs': 'Abgeschlossene Aufträge',
+        'trust.languages_available': 'Verfügbare Sprachen',
+        'how.title': 'So funktioniert es',
+        'how.step1.title': 'Suchen',
+        'how.step1.text': 'Suche Dienstleistungen nach Kategorie und Ort',
+        'how.step2.title': 'Kontakt',
+        'how.step2.text': 'Kontaktiere den Dienstleister direkt',
+        'how.step3.title': 'Erledigen',
+        'how.step3.text': 'Löse das Problem schnell und zuverlässig',
+        'services.title': 'Beliebte Dienstleistungen',
+        'services.repair': 'Reparaturen',
+        'services.cleaning': 'Reinigung',
+        'services.delivery': 'Lieferung',
+        'services.moving': 'Umzüge',
+        'services.it': 'IT-Dienstleistungen',
+        'services.events': 'Events',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'B2B Dienstleistungen',
+        'review.heading': 'Bewertung hinterlassen',
+        'review.text': 'Hilf anderen, die besten Dienstleister zu finden',
+        'review.rating_label': 'Bewertung',
+        'review.your_review_label': 'Deine Bewertung',
+        'review.placeholder': 'Beschreibe deine Erfahrung...',
+        'review.submit': 'Bewertung senden',
+        'pricing.title': 'Wähle den Plan, der zu dir passt',
+        'pricing.subtitle': 'Alle Pläne enthalten unbegrenzte Nachrichten',
+        'pricing.free.title': 'Kostenlose Testversion',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Basisprofil',
+        'pricing.free.f2': '✓ Basis-Sichtbarkeit',
+        'pricing.free.f3': '✓ Unbegrenzte Nachrichten',
+        'pricing.free.f4': '✓ Basis-Analytics',
+        'pricing.free.cta': 'Kostenlos starten',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Vollständiges Profil',
+        'pricing.standard.f2': '✓ Standard-Sichtbarkeit',
+        'pricing.standard.f3': '✓ Unbegrenzte Nachrichten',
+        'pricing.standard.f4': '✓ Vollständige Analytics',
+        'pricing.standard.f5': '✓ Email-Support',
+        'pricing.standard.cta': 'Plan wählen',
+        'pricing.premium.badge': 'POPULAR',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Prioritätsprofil',
+        'pricing.premium.f2': '✓ Spitzenplatz in Kategorie',
+        'pricing.premium.f3': '✓ Unbegrenzte Nachrichten',
+        'pricing.premium.f4': '✓ Erweiterte Analytics',
+        'pricing.premium.f5': '✓ Prioritäts-Support',
+        'pricing.premium.f6': '✓ Verifizierungs-Badge',
+        'pricing.premium.cta': 'Premium wählen',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Sofortige Sichtbarkeitssteigerung',
+        'pricing.boost.f2': '✓ 7 Tage oben',
+        'pricing.boost.f3': '✓ Unbegrenzte Nachrichten',
+        'pricing.boost.f4': '✓ Vollständige Analytics',
+        'pricing.boost.f5': '✓ Zu jedem Plan hinzufügen',
+        'pricing.boost.cta': 'Boost aktivieren',
+        'about.title': 'Über Usluga24',
+        'about.subtitle': 'Globale Plattform zum Finden und Bewerben von Dienstleistungen und Anbietern',
+        'about.values.title': 'Unsere Werte',
+        'about.values.global.title': 'Global verfügbar',
+        'about.values.global.text': 'Wir unterstützen 8 Sprachen: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Zuverlässig',
+        'about.values.trust.text': 'Verifizierte Anbieter und Bewertungssystem',
+        'about.values.fast.title': 'Schnell und einfach',
+        'about.values.fast.text': 'Probleme in wenigen Klicks lösen',
+        'about.mission.title': 'Unsere Mission',
+        'about.mission.text': 'Nutzern ermöglichen, schnell Fachkräfte und Firmen für jede Dienstleistung zu finden und Anbietern helfen, neue Kunden zu gewinnen und Sichtbarkeit zu erhöhen. Von kleinen Handwerkern bis zu großen Unternehmen - Usluga24 ist für alle.',
+        'contact.title': 'Kontakt',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Telefon: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Globale Plattform, die Sie mit Top-Dienstleistern verbindet.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Schnellzugriff',
+        'footer.support.title': 'Support',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Kontakt',
+        'footer.support.tos': 'Nutzungsbedingungen',
+        'footer.support.privacy': 'Privatsphäre',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Abonniere Neuigkeiten und Angebote',
+        'footer.newsletter.placeholder': 'Deine Email',
+        'footer.rights': 'Alle Rechte vorbehalten.',
+        'modal.login.title': 'Anmelden',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Passwort',
+        'modal.login.submit': 'Anmelden',
+        'modal.login.no_account': 'Kein Konto? Registrieren',
+        'modal.signup.title': 'Registrieren',
+        'modal.signup.client': 'Kunde',
+        'modal.signup.client_text': 'Ich suche Dienstleistungen',
+        'modal.signup.provider': 'Anbieter',
+        'modal.signup.provider_text': 'Ich biete Dienstleistungen an',
+        'modal.signup.submit': 'Registrieren',
+        'modal.signup.have_account': 'Schon Konto? Anmelden',
+        'form.fullname': 'Name / Firmenname',
+        'form.email': 'Email',
+        'form.phone': 'Telefon',
+        'form.password': 'Passwort',
+        'form.location': 'Ort / Stadt',
+        'form.category': 'Dienstleistungskategorie',
+        'form.category.select': 'Kategorie wählen',
+        'form.description': 'Dienstleistungsbeschreibung',
+        'form.description.placeholder': 'Beschreibe, was du anbietest...',
+        'alerts.searchComingSoon': 'Suche bald verfügbar!',
+        'alerts.reviewThanks': 'Danke für die Bewertung! Sie wird bald sichtbar sein.',
+        'alerts.newsletterThanks': 'Danke für die Anmeldung!',
+        'dev.login_notice.title': 'Funktion bald verfügbar',
+        'dev.login_notice.text': 'Login und Registrierung werden verfügbar sein, sobald die App veröffentlicht wird. Die App wird in den ersten Monaten vollständig kostenlos sein, um Feedback von Nutzern zu sammeln.',
+
+        'dev.pricing_notice.title': 'Zu Beginn kostenlos',
+        'dev.pricing_notice.text': 'Die App wird in den ersten Monaten vollständig kostenlos sein, um Nutzerfeedback zu sammeln.',
+
+      },
+      it: {
+        'meta.title': 'Usluga24 - Trova professionisti e servizi in pochi clic',
+        'nav.home': 'Home',
+        'nav.services': 'Servizi',
+        'nav.pricing': 'Prezzi',
+        'nav.about': 'Chi siamo',
+        'btn.login': 'Accedi',
+        'btn.signup': 'Registrati',
+        'hero.title': 'Trova professionisti e servizi in pochi clic',
+        'hero.subtitle': 'Che tu stia cercando un artigiano, freelancer o azienda – Usluga24 ti collega ai migliori fornitori di servizi.',
+        'hero.download': '📱 Scarica l\'app',
+        'hero.become_provider': 'Diventa un fornitore',
+        'dev.title': 'Piattaforma in sviluppo',
+        'dev.text': 'Usluga24 è in sviluppo. Presto forniremo la migliore piattaforma per trovare e promuovere servizi!',
+        'search.service_placeholder': 'Che servizio ti serve?',
+        'search.location_placeholder': 'Città o posizione',
+        'search.button': 'Cerca',
+        'trust.registered_providers': 'Fornitori registrati',
+        'trust.completed_jobs': 'Lavori completati',
+        'trust.languages_available': 'Lingue disponibili',
+        'how.title': 'Come funziona',
+        'how.step1.title': 'Cerca',
+        'how.step1.text': 'Cerca servizi per categoria e posizione',
+        'how.step2.title': 'Contatta',
+        'how.step2.text': 'Contatta direttamente il fornitore',
+        'how.step3.title': 'Risolvi',
+        'how.step3.text': 'Risolvi il problema rapidamente e con affidabilità',
+        'services.title': 'Servizi popolari',
+        'services.repair': 'Riparazioni',
+        'services.cleaning': 'Pulizie',
+        'services.delivery': 'Consegna',
+        'services.moving': 'Traslochi',
+        'services.it': 'Servizi IT',
+        'services.events': 'Eventi',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'Servizi B2B',
+        'review.heading': 'Lascia una recensione',
+        'review.text': 'Aiuta gli altri a trovare i migliori fornitori di servizi',
+        'review.rating_label': 'Valutazione',
+        'review.your_review_label': 'La tua recensione',
+        'review.placeholder': 'Descrivi la tua esperienza...',
+        'review.submit': 'Invia recensione',
+        'pricing.title': 'Scegli il piano che fa per te',
+        'pricing.subtitle': 'Tutti i piani includono messaggi illimitati',
+        'pricing.free.title': 'Prova gratuita',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Profilo base',
+        'pricing.free.f2': '✓ Visibilità base',
+        'pricing.free.f3': '✓ Messaggi illimitati',
+        'pricing.free.f4': '✓ Analisi base',
+        'pricing.free.cta': 'Inizia gratis',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Profilo completo',
+        'pricing.standard.f2': '✓ Visibilità standard',
+        'pricing.standard.f3': '✓ Messaggi illimitati',
+        'pricing.standard.f4': '✓ Analisi completa',
+        'pricing.standard.f5': '✓ Supporto email',
+        'pricing.standard.cta': 'Scegli il piano',
+        'pricing.premium.badge': 'POPOLARE',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Profilo prioritario',
+        'pricing.premium.f2': '✓ In cima alla categoria',
+        'pricing.premium.f3': '✓ Messaggi illimitati',
+        'pricing.premium.f4': '✓ Analisi avanzata',
+        'pricing.premium.f5': '✓ Supporto prioritario',
+        'pricing.premium.f6': '✓ Badge di verifica',
+        'pricing.premium.cta': 'Scegli Premium',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Aumento immediato visibilità',
+        'pricing.boost.f2': '✓ 7 giorni in cima',
+        'pricing.boost.f3': '✓ Messaggi illimitati',
+        'pricing.boost.f4': '✓ Analisi completa',
+        'pricing.boost.f5': '✓ Aggiungi a qualsiasi piano',
+        'pricing.boost.cta': 'Attiva Boost',
+        'about.title': 'Su Usluga24',
+        'about.subtitle': 'Piattaforma globale per trovare e promuovere servizi e fornitori',
+        'about.values.title': 'I nostri valori',
+        'about.values.global.title': 'Disponibile a livello globale',
+        'about.values.global.text': 'Supportiamo 8 lingue: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Affidabile',
+        'about.values.trust.text': 'Fornitori verificati e sistema di recensioni',
+        'about.values.fast.title': 'Veloce e semplice',
+        'about.values.fast.text': 'Risolvere i problemi in pochi clic',
+        'about.mission.title': 'La nostra missione',
+        'about.mission.text': 'Permettere agli utenti di trovare rapidamente professionisti e aziende per qualsiasi servizio e aiutare i fornitori a ottenere nuovi clienti e aumentare la visibilità. Da piccoli artigiani a grandi aziende - Usluga24 è una piattaforma per tutti.',
+        'contact.title': 'Contatto',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Telefono: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Piattaforma globale che ti connette con i migliori fornitori di servizi.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Link rapidi',
+        'footer.support.title': 'Supporto',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Contatto',
+        'footer.support.tos': 'Termini di utilizzo',
+        'footer.support.privacy': 'Privacy',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Iscriviti per notizie e offerte',
+        'footer.newsletter.placeholder': 'La tua email',
+        'footer.rights': 'Tutti i diritti riservati.',
+        'modal.login.title': 'Accedi',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Password',
+        'modal.login.submit': 'Accedi',
+        'modal.login.no_account': 'Nessun account? Registrati',
+        'modal.signup.title': 'Registrati',
+        'modal.signup.client': 'Cliente',
+        'modal.signup.client_text': 'Cerco servizi',
+        'modal.signup.provider': 'Fornitore',
+        'modal.signup.provider_text': 'Offro servizi',
+        'modal.signup.submit': 'Registrati',
+        'modal.signup.have_account': 'Hai un account? Accedi',
+        'form.fullname': 'Nome e cognome / Nome azienda',
+        'form.email': 'Email',
+        'form.phone': 'Telefono',
+        'form.password': 'Password',
+        'form.location': 'Località / Città',
+        'form.category': 'Categoria servizio',
+        'form.category.select': 'Scegli categoria',
+        'form.description': 'Descrizione servizi',
+        'form.description.placeholder': 'Descrivi cosa offri...',
+        'alerts.searchComingSoon': 'Ricerca disponibile a breve!',
+        'alerts.reviewThanks': 'Grazie per la recensione! Sarà visibile a breve.',
+        'alerts.newsletterThanks': 'Grazie per esserti iscritto!',
+        'dev.login_notice.title': 'Funzione in arrivo',
+        'dev.login_notice.text': 'Accesso e registrazione saranno disponibili al rilascio dell’app. L’app sarà completamente gratuita per i primi mesi per raccogliere feedback dagli utenti.',
+
+        'dev.pricing_notice.title': 'Gratis all’inizio',
+        'dev.pricing_notice.text': 'L’app sarà completamente gratuita per i primi mesi per raccogliere feedback dagli utenti.',
+
+      },
+      ru: {
+        'meta.title': 'Usluga24 - Найдите специалистов и услуги в несколько кликов',
+        'nav.home': 'Главная',
+        'nav.services': 'Услуги',
+        'nav.pricing': 'Цены',
+        'nav.about': 'О нас',
+        'btn.login': 'Войти',
+        'btn.signup': 'Регистрация',
+        'hero.title': 'Найдите специалистов и услуги в несколько кликов',
+        'hero.subtitle': 'Ищете мастера, фрилансера или компанию – Usluga24 связывает вас с лучшими исполнителями.',
+        'hero.download': '📱 Скачать приложение',
+        'hero.become_provider': 'Стать исполнителем',
+        'dev.title': 'Платформа в разработке',
+        'dev.text': 'Usluga24 в разработке. Скоро мы предложим лучшую платформу для поиска и рекламы услуг!',
+        'search.service_placeholder': 'Какая услуга вам нужна?',
+        'search.location_placeholder': 'Город или местоположение',
+        'search.button': 'Поиск',
+        'trust.registered_providers': 'Зарегистрированных исполнителей',
+        'trust.completed_jobs': 'Выполненных работ',
+        'trust.languages_available': 'Доступных языков',
+        'how.title': 'Как это работает',
+        'how.step1.title': 'Поиск',
+        'how.step1.text': 'Ищите услуги по категории и локации',
+        'how.step2.title': 'Связаться',
+        'how.step2.text': 'Свяжитесь с исполнителем напрямую',
+        'how.step3.title': 'Решить',
+        'how.step3.text': 'Решите проблему быстро и надежно',
+        'services.title': 'Популярные услуги',
+        'services.repair': 'Ремонт',
+        'services.cleaning': 'Уборка',
+        'services.delivery': 'Доставка',
+        'services.moving': 'Переезды',
+        'services.it': 'IT-услуги',
+        'services.events': 'Мероприятия',
+        'services.freelance': 'Фриланс',
+        'services.b2b': 'B2B услуги',
+        'review.heading': 'Оставьте отзыв',
+        'review.text': 'Помогите другим найти лучших исполнителей',
+        'review.rating_label': 'Оценка',
+        'review.your_review_label': 'Ваш отзыв',
+        'review.placeholder': 'Опишите ваш опыт...',
+        'review.submit': 'Отправить отзыв',
+        'pricing.title': 'Выберите подходящий план',
+        'pricing.subtitle': 'Все планы включают неограниченные сообщения',
+        'pricing.free.title': 'Бесплатный пробный',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Базовый профиль',
+        'pricing.free.f2': '✓ Базовая видимость',
+        'pricing.free.f3': '✓ Неограниченные сообщения',
+        'pricing.free.f4': '✓ Базовая аналитика',
+        'pricing.free.cta': 'Начать бесплатно',
+        'pricing.standard.title': 'Стандарт',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Полный профиль',
+        'pricing.standard.f2': '✓ Стандартная видимость',
+        'pricing.standard.f3': '✓ Неограниченные сообщения',
+        'pricing.standard.f4': '✓ Полная аналитика',
+        'pricing.standard.f5': '✓ Email поддержка',
+        'pricing.standard.cta': 'Выбрать план',
+        'pricing.premium.badge': 'ПОПУЛЯРНО',
+        'pricing.premium.title': 'Премиум',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Приоритетный профиль',
+        'pricing.premium.f2': '✓ Топ в категории',
+        'pricing.premium.f3': '✓ Неограниченные сообщения',
+        'pricing.premium.f4': '✓ Расширенная аналитика',
+        'pricing.premium.f5': '✓ Приоритетная поддержка',
+        'pricing.premium.f6': '✓ Бейдж верификации',
+        'pricing.premium.cta': 'Выбрать премиум',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Мгновенное увеличение видимости',
+        'pricing.boost.f2': '✓ 7 дней в топе',
+        'pricing.boost.f3': '✓ Неограниченные сообщения',
+        'pricing.boost.f4': '✓ Полная аналитика',
+        'pricing.boost.f5': '✓ Добавить к любому плану',
+        'pricing.boost.cta': 'Активировать Boost',
+        'about.title': 'О Usluga24',
+        'about.subtitle': 'Глобальная платформа для поиска и продвижения услуг и исполнителей',
+        'about.values.title': 'Наши ценности',
+        'about.values.global.title': 'Доступно глобально',
+        'about.values.global.text': 'Мы поддерживаем 8 языков: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Надежно',
+        'about.values.trust.text': 'Проверенные исполнители и система отзывов',
+        'about.values.fast.title': 'Быстро и просто',
+        'about.values.fast.text': 'Решение задач в несколько кликов',
+        'about.mission.title': 'Наша миссия',
+        'about.mission.text': 'Помочь пользователям быстро находить специалистов и компании для любых услуг, а исполнителям — получать клиентов и повышать видимость. От мелких мастеров до крупных компаний — Usluga24 для всех.',
+        'contact.title': 'Контакты',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Телефон: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Глобальная платформа, соединяющая вас с лучшими исполнителями.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Быстрые ссылки',
+        'footer.support.title': 'Поддержка',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Контакт',
+        'footer.support.tos': 'Условия использования',
+        'footer.support.privacy': 'Конфиденциальность',
+        'footer.newsletter.title': 'Рассылка',
+        'footer.newsletter.text': 'Подпишитесь на новости и предложения',
+        'footer.newsletter.placeholder': 'Ваш Email',
+        'footer.rights': 'Все права защищены.',
+        'modal.login.title': 'Вход',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Пароль',
+        'modal.login.submit': 'Войти',
+        'modal.login.no_account': 'Нет аккаунта? Регистрация',
+        'modal.signup.title': 'Регистрация',
+        'modal.signup.client': 'Клиент',
+        'modal.signup.client_text': 'Ищу услуги',
+        'modal.signup.provider': 'Исполнитель',
+        'modal.signup.provider_text': 'Предлагаю услуги',
+        'modal.signup.submit': 'Зарегистрироваться',
+        'modal.signup.have_account': 'Есть аккаунт? Войти',
+        'form.fullname': 'ФИО / Название компании',
+        'form.email': 'Email',
+        'form.phone': 'Телефон',
+        'form.password': 'Пароль',
+        'form.location': 'Локация / Город',
+        'form.category': 'Категория услуги',
+        'form.category.select': 'Выберите категорию',
+        'form.description': 'Описание услуг',
+        'form.description.placeholder': 'Опишите, что вы предлагаете...',
+        'alerts.searchComingSoon': 'Поиск скоро будет доступен!',
+        'alerts.reviewThanks': 'Спасибо за отзыв! Скоро он будет виден.',
+        'alerts.newsletterThanks': 'Спасибо за подписку!',
+        'dev.login_notice.title': 'Функция скоро будет доступна',
+        'dev.login_notice.text': 'Авторизация и регистрация будут доступны после релиза приложения. Первые несколько месяцев приложение будет полностью бесплатным для сбора отзывов.',
+
+        'dev.pricing_notice.title': 'Бесплатно в начале',
+        'dev.pricing_notice.text': 'Приложение будет полностью бесплатным первые несколько месяцев для сбора отзывов пользователей.',
+      },
+      fr: {
+        'meta.title': 'Usluga24 - Trouvez des professionnels et des services en quelques clics',
+        'nav.home': 'Accueil',
+        'nav.services': 'Services',
+        'nav.pricing': 'Tarifs',
+        'nav.about': 'À propos',
+        'btn.login': 'Connexion',
+        'btn.signup': 'S\'inscrire',
+        'hero.title': 'Trouvez des professionnels et des services en quelques clics',
+        'hero.subtitle': 'Que vous cherchiez un artisan, un freelance ou une entreprise – Usluga24 vous connecte aux meilleurs prestataires.',
+        'hero.download': '📱 Télécharger l\'application',
+        'hero.become_provider': 'Devenez prestataire',
+        'dev.title': 'Plateforme en développement',
+        'dev.text': 'Usluga24 est en cours de développement. Nous fournirons bientôt la meilleure plateforme pour trouver et promouvoir des services!',
+        'search.service_placeholder': 'Quel service vous faut-il?',
+        'search.location_placeholder': 'Ville ou emplacement',
+        'search.button': 'Rechercher',
+        'trust.registered_providers': 'Prestataires inscrits',
+        'trust.completed_jobs': 'Travaux terminés',
+        'trust.languages_available': 'Langues disponibles',
+        'how.title': 'Comment ça marche',
+        'how.step1.title': 'Rechercher',
+        'how.step1.text': 'Recherchez des services par catégorie et emplacement',
+        'how.step2.title': 'Contacter',
+        'how.step2.text': 'Contactez directement le prestataire',
+        'how.step3.title': 'Résoudre',
+        'how.step3.text': 'Résolvez le problème rapidement et de manière fiable',
+        'services.title': 'Services populaires',
+        'services.repair': 'Réparations',
+        'services.cleaning': 'Nettoyage',
+        'services.delivery': 'Livraison',
+        'services.moving': 'Déménagements',
+        'services.it': 'Services IT',
+        'services.events': 'Événements',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'Services B2B',
+        'review.heading': 'Laisser un avis',
+        'review.text': 'Aidez les autres à trouver les meilleurs prestataires',
+        'review.rating_label': 'Note',
+        'review.your_review_label': 'Votre avis',
+        'review.placeholder': 'Décrivez votre expérience...',
+        'review.submit': 'Envoyer l\'avis',
+        'pricing.title': 'Choisissez le plan qui vous convient',
+        'pricing.subtitle': 'Tous les plans incluent la messagerie illimitée',
+        'pricing.free.title': 'Essai gratuit',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Profil de base',
+        'pricing.free.f2': '✓ Visibilité de base',
+        'pricing.free.f3': '✓ Messagerie illimitée',
+        'pricing.free.f4': '✓ Analytique de base',
+        'pricing.free.cta': 'Commencer gratuitement',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Profil complet',
+        'pricing.standard.f2': '✓ Visibilité standard',
+        'pricing.standard.f3': '✓ Messagerie illimitée',
+        'pricing.standard.f4': '✓ Analytique complète',
+        'pricing.standard.f5': '✓ Support email',
+        'pricing.standard.cta': 'Choisir le plan',
+        'pricing.premium.badge': 'POPULAIRE',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Profil prioritaire',
+        'pricing.premium.f2': '✓ Top catégorie',
+        'pricing.premium.f3': '✓ Messagerie illimitée',
+        'pricing.premium.f4': '✓ Analytique avancée',
+        'pricing.premium.f5': '✓ Support prioritaire',
+        'pricing.premium.f6': '✓ Badge de vérification',
+        'pricing.premium.cta': 'Choisir Premium',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Augmentation de visibilité instantanée',
+        'pricing.boost.f2': '✓ 7 jours en tête',
+        'pricing.boost.f3': '✓ Messagerie illimitée',
+        'pricing.boost.f4': '✓ Analytique complète',
+        'pricing.boost.f5': '✓ Ajouter à n\'importe quel plan',
+        'pricing.boost.cta': 'Activer Boost',
+        'about.title': 'À propos de Usluga24',
+        'about.subtitle': 'Plateforme mondiale pour trouver et promouvoir des services et prestataires',
+        'about.values.title': 'Nos valeurs',
+        'about.values.global.title': 'Disponible globalement',
+        'about.values.global.text': 'Nous prenons en charge 8 langues: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Fiable',
+        'about.values.trust.text': 'Prestataires vérifiés et système d\'avis',
+        'about.values.fast.title': 'Rapide et simple',
+        'about.values.fast.text': 'Résoudre les problèmes en quelques clics',
+        'about.mission.title': 'Notre mission',
+        'about.mission.text': 'Permettre aux utilisateurs de trouver rapidement des professionnels et des entreprises pour n\'importe quel service, et aider les prestataires à obtenir de nouveaux clients et augmenter leur visibilité. Des petits artisans aux grandes entreprises - Usluga24 est une plateforme pour tous.',
+        'contact.title': 'Contact',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Téléphone: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Plateforme mondiale vous connectant aux meilleurs prestataires de services.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Liens rapides',
+        'footer.support.title': 'Support',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Contact',
+        'footer.support.tos': 'Conditions d\'utilisation',
+        'footer.support.privacy': 'Confidentialité',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Inscrivez-vous pour des nouvelles et offres',
+        'footer.newsletter.placeholder': 'Votre email',
+        'footer.rights': 'Tous droits réservés.',
+        'modal.login.title': 'Connexion',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Mot de passe',
+        'modal.login.submit': 'Connexion',
+        'modal.login.no_account': 'Pas de compte? Inscrivez-vous',
+        'modal.signup.title': 'Inscription',
+        'modal.signup.client': 'Client',
+        'modal.signup.client_text': 'Je cherche des services',
+        'modal.signup.provider': 'Prestataire',
+        'modal.signup.provider_text': 'Je propose des services',
+        'modal.signup.submit': 'S\'inscrire',
+        'modal.signup.have_account': 'Déjà un compte? Connexion',
+        'form.fullname': 'Nom complet / Nom société',
+        'form.email': 'Email',
+        'form.phone': 'Téléphone',
+        'form.password': 'Mot de passe',
+        'form.location': 'Localité / Ville',
+        'form.category': 'Catégorie de service',
+        'form.category.select': 'Choisir la catégorie',
+        'form.description': 'Description du service',
+        'form.description.placeholder': 'Décrivez ce que vous proposez...',
+        'alerts.searchComingSoon': 'Recherche bientôt disponible!',
+        'alerts.reviewThanks': 'Merci pour votre avis! Il sera bientôt visible.',
+        'alerts.newsletterThanks': 'Merci pour votre abonnement!',
+        'dev.login_notice.title': 'Fonction bientôt disponible',
+        'dev.login_notice.text': 'La connexion et l’inscription seront disponibles lors du lancement de l’application. L’application sera entièrement gratuite pendant les premiers mois pour recueillir les retours des utilisateurs.',
+
+        'dev.pricing_notice.title': 'Gratuit au début',
+        'dev.pricing_notice.text': 'L’application sera entièrement gratuite pendant les premiers mois afin de collecter des retours des utilisateurs.',
+      },
+      sr: {
+        'meta.title': 'Usluga24 - Pronađi profesionalce i usluge u par klikova',
+        'nav.home': 'Početna',
+        'nav.services': 'Usluge',
+        'nav.pricing': 'Cene',
+        'nav.about': 'O nama',
+        'btn.login': 'Prijava',
+        'btn.signup': 'Registracija',
+        'hero.title': 'Pronađi profesionalce i usluge u par klikova',
+        'hero.subtitle': 'Bilo da tražiš majstora, frilensera ili firmu – Usluga24 te povezuje sa najboljim pružaocima usluga.',
+        'hero.download': '📱 Preuzmi aplikaciju',
+        'hero.become_provider': 'Postani pružalac usluga',
+        'dev.title': 'Platforma u izradi',
+        'dev.text': 'Usluga24 je u razvoju. Uskoro ćemo ponuditi najbolju platformu za pronalaženje i oglašavanje usluga!',
+        'search.service_placeholder': 'Koju uslugu trebate?',
+        'search.location_placeholder': 'Grad ili lokacija',
+        'search.button': 'Pretraži',
+        'trust.registered_providers': 'Registrovanih pružaoca',
+        'trust.completed_jobs': 'Završenih poslova',
+        'trust.languages_available': 'Dostupnih jezika',
+        'how.title': 'Kako funkcioniše',
+        'how.step1.title': 'Pretraži',
+        'how.step1.text': 'Pretraži usluge po kategoriji i lokaciji',
+        'how.step2.title': 'Kontaktiraj',
+        'how.step2.text': 'Kontaktiraj pružaoca usluge direktno',
+        'how.step3.title': 'Reši',
+        'how.step3.text': 'Reši problem brzo i pouzdano',
+        'services.title': 'Popularne usluge',
+        'services.repair': 'Popravke',
+        'services.cleaning': 'Čišćenje',
+        'services.delivery': 'Dostava',
+        'services.moving': 'Selidbe',
+        'services.it': 'IT usluge',
+        'services.events': 'Događaji',
+        'services.freelance': 'Freelance',
+        'services.b2b': 'B2B usluge',
+        'review.heading': 'Ostavi recenziju',
+        'review.text': 'Pomozite drugima da pronađu najbolje pružaoce usluga',
+        'review.rating_label': 'Ocena',
+        'review.your_review_label': 'Vaša recenzija',
+        'review.placeholder': 'O svoje iskustvo...',
+        'review.submit': 'Pošaljite recenziju',
+        'pricing.title': 'Izaberite plan koji vam odgovara',
+        'pricing.subtitle': 'Svi planovi uključuju neograničeno slanje poruka',
+        'pricing.free.title': 'Besplatno probno',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ Osnovni profil',
+        'pricing.free.f2': '✓ Osnovna vidljivost',
+        'pricing.free.f3': '✓ Neograničeno slanje poruka',
+        'pricing.free.f4': '✓ Osnovna analitika',
+        'pricing.free.cta': 'Počni besplatno',
+        'pricing.standard.title': 'Standard',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ Potpuni profil',
+        'pricing.standard.f2': '✓ Standardna vidljivost',
+        'pricing.standard.f3': '✓ Neograničeno slanje poruka',
+        'pricing.standard.f4': '✓ Potpuna analitika',
+        'pricing.standard.f5': '✓ Email podrška',
+        'pricing.standard.cta': 'Izaberite plan',
+        'pricing.premium.badge': 'POPULARNO',
+        'pricing.premium.title': 'Premium',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ Prioritetni profil',
+        'pricing.premium.f2': '✓ Vrh kategorije',
+        'pricing.premium.f3': '✓ Neograničeno slanje poruka',
+        'pricing.premium.f4': '✓ Napredna analitika',
+        'pricing.premium.f5': '✓ Prioritetna podrška',
+        'pricing.premium.f6': '✓ Badge verifikacije',
+        'pricing.premium.cta': 'Izaberite Premium',
+        'pricing.boost.title': 'Boost',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ Instant povećanje vidljivosti',
+        'pricing.boost.f2': '✓ 7 dana na vrhu',
+        'pricing.boost.f3': '✓ Neograničeno slanje poruka',
+        'pricing.boost.f4': '✓ Potpuna analitika',
+        'pricing.boost.f5': '✓ Dodajte bilo kojem planu',
+        'pricing.boost.cta': 'Aktivirajte Boost',
+        'about.title': 'O Usluga24',
+        'about.subtitle': 'Globalna platforma za pronalaženje i oglašavanje usluga i pružalaca usluga',
+        'about.values.title': 'Naše vrednosti',
+        'about.values.global.title': 'Globalno dostupno',
+        'about.values.global.text': 'Podržavamo 8 jezika: HR, EN, DE, IT, RU, FR, SR, ZH',
+        'about.values.trust.title': 'Pouzdano',
+        'about.values.trust.text': 'Verifikovani pružaoci i sistem recenzija',
+        'about.values.fast.title': 'Brzo i jednostavno',
+        'about.values.fast.text': 'Rešavanje problema u nekoliko klikova',
+        'about.mission.title': 'Naša misija',
+        'about.mission.text': 'Omogućiti korisnicima da brzo pronađu profesionalce i kompanije za bilo koju uslugu i pomoći pružaocima da dobiju nove klijente i povećaju vidljivost. Od malih majstora do velikih kompanija - Usluga24 je platforma za sve.',
+        'contact.title': 'Kontakt',
+        'contact.email': 'Email: info@usluga24.com',
+        'contact.phone': 'Telefon: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': 'Globalna platforma za povezivanje sa najboljim pružaocima usluga.',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': 'Brzi linkovi',
+        'footer.support.title': 'Podrška',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': 'Kontakt',
+        'footer.support.tos': 'Uslovi korišćenja',
+        'footer.support.privacy': 'Privatnost',
+        'footer.newsletter.title': 'Newsletter',
+        'footer.newsletter.text': 'Prijavite se za novosti i ponude',
+        'footer.newsletter.placeholder': 'Vaš email',
+        'footer.rights': 'Sva prava zadržana.',
+        'modal.login.title': 'Prijava',
+        'modal.login.email': 'Email',
+        'modal.login.password': 'Lozinka',
+        'modal.login.submit': 'Prijavi se',
+        'modal.login.no_account': 'Nemate nalog? Registrujte se',
+        'modal.signup.title': 'Registracija',
+        'modal.signup.client': 'Klijent',
+        'modal.signup.client_text': 'Tražim usluge',
+        'modal.signup.provider': 'Pružalac',
+        'modal.signup.provider_text': 'Nudim usluge',
+        'modal.signup.submit': 'Registrujte se',
+        'modal.signup.have_account': 'Imate nalog? Prijavite se',
+        'form.fullname': 'Ime i prezime / Naziv firme',
+        'form.email': 'Email',
+        'form.phone': 'Telefon',
+        'form.password': 'Lozinka',
+        'form.location': 'Lokacija / Grad',
+        'form.category': 'Kategorija usluge',
+        'form.category.select': 'Odaberite kategoriju',
+        'form.description': 'Opis usluga',
+        'form.description.placeholder': 'Opišite šta nudite...',
+        'alerts.searchComingSoon': 'Pretraga uskoro dostupna!',
+        'alerts.reviewThanks': 'Hvala na recenziji! Uskoro će biti vidljiva.',
+        'alerts.newsletterThanks': 'Hvala na prijavi!',
+        'dev.login_notice.title': 'Funkcija uskoro dostupna',
+        'dev.login_notice.text': 'Prijava i registracija biće omogućene kada aplikacija bude objavljena. Aplikacija će prvih nekoliko meseci biti potpuno besplatna radi prikupljanja povratnih informacija.',
+
+        'dev.pricing_notice.title': 'Besplatno na početku',
+        'dev.pricing_notice.text': 'Aplikacija će prvih nekoliko meseci biti potpuno besplatna radi prikupljanja povratnih informacija.',
+      },
+      zh: {
+        'meta.title': 'Usluga24 - 几次点击即可找到专业人员和服务',
+        'nav.home': '首页',
+        'nav.services': '服务',
+        'nav.pricing': '价格',
+        'nav.about': '关于我们',
+        'btn.login': '登录',
+        'btn.signup': '注册',
+        'hero.title': '几次点击即可找到专业人员和服务',
+        'hero.subtitle': '无论您需要技工、自由职业者或公司，Usluga24 都能为您连接最佳服务提供者。',
+        'hero.download': '📱 下载应用',
+        'hero.become_provider': '成为服务提供者',
+        'dev.title': '平台正在开发中',
+        'dev.text': 'Usluga24 正在开发中。我们将很快为您提供查找和宣传服务的最佳平台！',
+        'search.service_placeholder': '您需要什么服务？',
+        'search.location_placeholder': '城市或地点',
+        'search.button': '搜索',
+        'trust.registered_providers': '注册提供者',
+        'trust.completed_jobs': '完成的工作',
+        'trust.languages_available': '可用语言',
+        'how.title': '工作原理',
+        'how.step1.title': '搜索',
+        'how.step1.text': '按类别和位置搜索服务',
+        'how.step2.title': '联系',
+        'how.step2.text': '直接联系服务提供者',
+        'how.step3.title': '解决',
+        'how.step3.text': '快速可靠地解决问题',
+        'services.title': '热门服务',
+        'services.repair': '维修',
+        'services.cleaning': '清洁',
+        'services.delivery': '送货',
+        'services.moving': '搬家',
+        'services.it': 'IT 服务',
+        'services.events': '活动',
+        'services.freelance': '自由职业',
+        'services.b2b': 'B2B 服务',
+        'review.heading': '留下评论',
+        'review.text': '帮助他人找到最佳服务提供者',
+        'review.rating_label': '评分',
+        'review.your_review_label': '您的评论',
+        'review.placeholder': '描述您的体验...',
+        'review.submit': '提交评论',
+        'pricing.title': '选择适合您的计划',
+        'pricing.subtitle': '所有计划均包括无限消息',
+        'pricing.free.title': '免费试用',
+        'pricing.free.price': '0€',
+        'pricing.free.f1': '✓ 基本档案',
+        'pricing.free.f2': '✓ 基本可见性',
+        'pricing.free.f3': '✓ 无限消息',
+        'pricing.free.f4': '✓ 基础分析',
+        'pricing.free.cta': '开始免费试用',
+        'pricing.standard.title': '标准',
+        'pricing.standard.price': '5€',
+        'pricing.standard.f1': '✓ 完整个人资料',
+        'pricing.standard.f2': '✓ 标准可见性',
+        'pricing.standard.f3': '✓ 无限消息',
+        'pricing.standard.f4': '✓ 完整分析',
+        'pricing.standard.f5': '✓ 邮件支持',
+        'pricing.standard.cta': '选择计划',
+        'pricing.premium.badge': '热门',
+        'pricing.premium.title': '高级',
+        'pricing.premium.price': '9.99€',
+        'pricing.premium.f1': '✓ 优先档案',
+        'pricing.premium.f2': '✓ 类目置顶',
+        'pricing.premium.f3': '✓ 无限消息',
+        'pricing.premium.f4': '✓ 高级分析',
+        'pricing.premium.f5': '✓ 优先支持',
+        'pricing.premium.f6': '✓ 验证徽章',
+        'pricing.premium.cta': '选择高级',
+        'pricing.boost.title': '提升',
+        'pricing.boost.price': '4.99€',
+        'pricing.boost.f1': '✓ 立即提升可见度',
+        'pricing.boost.f2': '✓ 顶部展示7天',
+        'pricing.boost.f3': '✓ 无限消息',
+        'pricing.boost.f4': '✓ 完整分析',
+        'pricing.boost.f5': '✓ 可添加到任何计划',
+        'pricing.boost.cta': '激活提升',
+        'about.title': '关于 Usluga24',
+        'about.subtitle': '查找和宣传服务及提供者的全球平台',
+        'about.values.title': '我们的价值观',
+        'about.values.global.title': '全球可用',
+        'about.values.global.text': '我们支持8种语言：HR、EN、DE、IT、RU、FR、SR、ZH',
+        'about.values.trust.title': '可靠',
+        'about.values.trust.text': '已验证的提供者和评论系统',
+        'about.values.fast.title': '快速且简单',
+        'about.values.fast.text': '几次点击即可解决问题',
+        'about.mission.title': '我们的使命',
+        'about.mission.text': '帮助用户快速找到任何服务的专业人员和公司，并帮助提供者获取新客户并提高可见性。从小型工匠到大型公司——Usluga24适合所有人。',
+        'contact.title': '联系我们',
+        'contact.email': '邮箱: info@usluga24.com',
+        'contact.phone': '电话: +385 1 234 5678',
+        'footer.title': 'Usluga24',
+        'footer.description': '连接您与顶级服务提供者的全球平台。',
+        'footer.madein': '🇭🇷 Made in Croatia',
+        'footer.links.title': '快速链接',
+        'footer.support.title': '支持',
+        'footer.support.faq': 'FAQ',
+        'footer.support.contact': '联系',
+        'footer.support.tos': '使用条款',
+        'footer.support.privacy': '隐私',
+        'footer.newsletter.title': '订阅',
+        'footer.newsletter.text': '注册以获取新闻和优惠',
+        'footer.newsletter.placeholder': '您的邮箱',
+        'footer.rights': '版权所有。',
+        'modal.login.title': '登录',
+        'modal.login.email': '邮箱',
+        'modal.login.password': '密码',
+        'modal.login.submit': '登录',
+        'modal.login.no_account': '没有帐号？ 注册',
+        'modal.signup.title': '注册',
+        'modal.signup.client': '客户',
+        'modal.signup.client_text': '我在寻找服务',
+        'modal.signup.provider': '提供者',
+        'modal.signup.provider_text': '我提供服务',
+        'modal.signup.submit': '注册',
+        'modal.signup.have_account': '已有账户？ 登录',
+        'form.fullname': '姓名 / 公司名称',
+        'form.email': '邮箱',
+        'form.phone': '电话',
+        'form.password': '密码',
+        'form.location': '位置 / 城市',
+        'form.category': '服务分类',
+        'form.category.select': '选择分类',
+        'form.description': '服务描述',
+        'form.description.placeholder': '描述您提供的服务...',
+        'alerts.searchComingSoon': '搜索即将上线！',
+        'alerts.reviewThanks': '感谢您的评价！它很快会显示。',
+        'alerts.newsletterThanks': '感谢订阅！',
+        'dev.login_notice.title': '功能即将上线',
+        'dev.login_notice.text': '登录和注册功能将在应用发布后开放。为了收集用户反馈，应用将在前几个月完全免费。',
+        'dev.pricing_notice.title': '前期免费',
+        'dev.pricing_notice.text': '为了收集用户反馈，应用在最初的几个月将完全免费。',
+      }
+    };
+    
+      
+    
+
+    function applyTranslations(lang) {
+      currentLang = lang;
+      
+      // set document title meta
+      if (translations[lang] && translations[lang]['meta.title']) {
+        document.title = translations[lang]['meta.title'];
+      }
+      
+      // data-i18n -> textContent
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      
+      // data-i18n-placeholder -> placeholder attribute
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          el.setAttribute('placeholder', translations[lang][key]);
+        }
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set initial translations
+      applyTranslations(currentLang);
+
+      // wire lang selector
+      const sel = document.getElementById('langSelector');
+      sel.value = currentLang;
+      sel.addEventListener('change', function() {
+        applyTranslations(this.value);
+        try { localStorage.setItem('usluga24_lang', this.value); } catch(e){}
+      });
+
+      // load lang from storage if available
+      try {
+        const saved = localStorage.getItem('usluga24_lang');
+        if (saved && translations[saved]) {
+          sel.value = saved;
+          applyTranslations(saved);
+        }
+      } catch(e){}
+
+      // set year
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
+
+    // Page Navigation
+    function showPage(pageId) {
+        document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+        const el = document.getElementById(pageId);
+        if (el) el.classList.add('active');
+
+        document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+        const clickedLink = Array.from(document.querySelectorAll('.nav-menu a')).find(
+            link => link.getAttribute('onclick')?.includes(pageId)
+        );
+        if (clickedLink) clickedLink.classList.add('active');
+
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // Modal Functions
+    function openModal(modalId) { 
+        const modal = document.getElementById(modalId);
+        modal.classList.add('active'); 
+        document.body.style.overflow='hidden';
+        
+        // Force re-apply translations after modal is visible
+        setTimeout(() => {
+            applyTranslations(currentLang);
+        }, 50);
+    }
+    
+    function closeModal(modalId) { 
+        document.getElementById(modalId).classList.remove('active'); 
+        document.body.style.overflow='auto'; 
+    }
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) closeModal(this.id);
+      });
+    });
+
+    // User Type Selection
+    let selectedUserType = 'client';
+    function selectUserType(type) {
+      selectedUserType = type;
+      document.querySelectorAll('.user-type-option').forEach(option => option.classList.remove('active'));
+      const options = document.querySelectorAll('.user-type-option');
+      if (type === 'client') {
+        options[0].classList.add('active');
+      } else {
+        options[1].classList.add('active');
+      }
+      const providerFields = document.getElementById('providerFields');
+      if (type === 'provider') providerFields.style.display='block'; else providerFields.style.display='none';
+    }
+
+    // Star Rating
+    let selectedRating = 0;
+    function setRating(rating) {
+      selectedRating = rating;
+      const stars = document.querySelectorAll('.star');
+      stars.forEach((star, index) => {
+        if (index < rating) star.classList.add('active'); else star.classList.remove('active');
+      });
+    }
+
+    // Form Handlers
+    function handleLogin() {
+      alert(translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon');
+    }
+    
+    function handleSignup() {
+      const userTypeText = selectedUserType === 'client' ? (translations[currentLang]['modal.signup.client']||'client') : (translations[currentLang]['modal.signup.provider']||'provider');
+      alert((translations[currentLang]['alerts.searchComingSoon'] || 'Feature coming soon') + "\n\n" + (translations[currentLang]['modal.signup.title']||'Sign up') + ': ' + userTypeText);
+    }
+</script>
+</body>
+</html>
